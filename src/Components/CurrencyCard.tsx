@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Exchange from "./Exchange";
+import YouGet from "./YouGet";
 
 function CurrencyCard() {
 	const [currencies, setCurrencies] = useState(["hello"]);
@@ -36,6 +37,7 @@ function CurrencyCard() {
 					{activeTab === 2 ? (
 						<div className="flex flex-col items-center justify-center gap-10">
 							<Exchange currencies={currencies} amount={1} currency={"USD"} />
+							<YouGet currencies={currencies} amount={1} currency={"USD"} />
 						</div>
 					) : (
 						<div></div>
