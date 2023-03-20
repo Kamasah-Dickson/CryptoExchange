@@ -65,16 +65,7 @@ function YouGet({
 		handleResponseCurrency(responseCoins);
 	}
 
-	useEffect(() => {
-		setResponseCoins(
-			parseFloat(
-				(
-					(responseCoinsDecimal.toNumber() / userExchangeRate2.toNumber()) *
-					responseExchangeRate2.toNumber()
-				).toFixed(5)
-			)
-		);
-	}, [userCoins, userCurrency]);
+	console.log(responseCurrency);
 
 	return (
 		<div className="flex w-full items-center justify-between gap-1">

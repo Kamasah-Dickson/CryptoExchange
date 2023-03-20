@@ -8,7 +8,7 @@ function CurrencyCard() {
 	const [currencies, setCurrencies] = useState([
 		{
 			btc: 0.12312,
-			usd: 0.21254,
+			usd: 0.53245,
 			eth: 0.75234,
 			ltc: 0.3436,
 			xmr: 2.34523,
@@ -25,8 +25,15 @@ function CurrencyCard() {
 	const [userCoins, setUserCoins] = useState(0.2);
 	const [responseCoins, setResponseCoins] = useState(0.0123);
 
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+	}
+
 	return (
-		<form className=" my-max2 mt-10 overflow-hidden rounded-3xl bg-white shadow-2xl ">
+		<form
+			className=" my-max2 mt-10 overflow-hidden rounded-3xl bg-white shadow-2xl"
+			onSubmit={(e) => handleSubmit(e)}
+		>
 			<div className="justify-cente flex flex-col">
 				{/* ====tab header==== */}
 				<div className=" flex items-center justify-between bg-transparent">

@@ -70,7 +70,7 @@ function YouSend({
 				).toFixed(5)
 			)
 		);
-	}, [userCoins, userCurrency]);
+	}, [userCoins, userCurrency, currencies, responseCurrency, responseCoins]);
 
 	function handleUserAmountChange(userCoins: number) {
 		setResponseCoins(
