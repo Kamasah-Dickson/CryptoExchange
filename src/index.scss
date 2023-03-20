@@ -24,20 +24,35 @@
 		transform-origin: top right;
 	}
 	.active {
-		background-color: rgba(0, 0, 0, 0.952);
-		color: white;
+		background-color: rgba(186, 182, 223, 0.747);
+
+		color: black;
 		transform: skew(-15deg);
 		border-bottom-right-radius: 20px;
+		transition: 0.3s ease;
+		&:hover {
+			background-color: rgba(171, 163, 241, 0.678);
+			box-shadow: inset -1px 0px 8px -1px rgba(47, 16, 221, 0.952);
+		}
 	}
 	.active2 {
 		transform: skew(15deg);
-		background-color: rgba(0, 0, 0, 0.952);
-		color: white;
+		background-color: rgba(186, 182, 223, 0.747);
 		border-bottom-left-radius: 20px;
+		transition: 0.3s ease;
+		color: black;
+		&:hover {
+			background-color: rgba(171, 163, 241, 0.678);
+			box-shadow: inset -1px 0px 8px -1px rgba(47, 16, 221, 0.952);
+		}
 	}
 
 	.my-max2 {
 		width: min(100% - 20px, 680px);
 		margin-inline: auto;
+	}
+
+	.my-select {
+		background-color: red !important;
 	}
 }
