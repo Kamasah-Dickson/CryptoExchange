@@ -24,15 +24,20 @@
 		transform-origin: top right;
 	}
 	.active {
-		background-color: rgb(0, 0, 0);
+		background-color: rgba(0, 0, 0, 0.952);
 		color: white;
 		transform: skew(-15deg);
 		border-bottom-right-radius: 20px;
 	}
 	.active2 {
 		transform: skew(15deg);
-		background-color: rgb(0, 0, 0);
+		background-color: rgba(0, 0, 0, 0.952);
 		color: white;
 		border-bottom-left-radius: 20px;
+	}
+
+	.my-max2 {
+		width: min(100% - 20px, 680px);
+		margin-inline: auto;
 	}
 }
