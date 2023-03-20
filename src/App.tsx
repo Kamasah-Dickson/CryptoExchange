@@ -10,7 +10,11 @@ function App() {
 				<h1 className="text-center text-4xl font-large md:text-6xl">
 					Crypto Exchange
 				</h1>
-				{/* <p>Your number one trusted friend</p> */}
+				<ul className="mt-3 flex list-outside list-disc items-center justify-center gap-7 text-sm font-bold uppercase">
+					<li>trusted</li>
+					<li>fast</li>
+					<li>reliable</li>
+				</ul>
 			</div>
 			<CurrencyCard />
 		</>
