@@ -7,7 +7,9 @@ function App() {
 		<>
 			<Header />
 			<div className="mt-10 flex flex-col items-center justify-center leading-10 text-white">
-				<h1 className="text-6xl font-large">Crypto Exchange</h1>
+				<h1 className="text-center text-4xl font-large md:text-6xl">
+					Crypto Exchange
+				</h1>
 				{/* <p>Your number one trusted friend</p> */}
 			</div>
 			<CurrencyCard />
