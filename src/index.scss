@@ -1,3 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	* {
+		font-family: "Roboto", sans-serif;
+	}
+	body {
+		background: linear-gradient(rgba(47, 36, 99, 0.2), rgba(45, 25, 92, 0.774)),
+			url("./assets/magicpattern-pattern-1679190320308.jpeg");
+		background-size: cover;
+		background-position: center top;
+		height: 100vh;
+	}
+
+	.my-max {
+		width: min(100% - 20px, 1200px);
+		margin-inline: auto;
+	}
+
+	.skewed-border {
+		transform-origin: top right;
+	}
+	.active {
+		background-color: rgb(0, 0, 0);
+		color: white;
+		transform: skew(-15deg);
+		border-bottom-right-radius: 20px;
+	}
+	.active2 {
+		transform: skew(15deg);
+		background-color: rgb(0, 0, 0);
+		color: white;
+		border-bottom-left-radius: 20px;
+	}
+}
