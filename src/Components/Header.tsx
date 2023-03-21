@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
 	return (
-		<div className="relative top-0 left-0 w-full border-b-2 border-[#370b9785] bg-[#ffffff10] py-5 backdrop-blur-3xl">
+		<div className="sticky top-0 left-0 z-20 w-full border-b-2 border-[#370b9785] bg-[#ffffff10] py-5 backdrop-blur-lg backdrop-saturate-100">
 			<div className="my-max flex items-center justify-between">
 				<Link to="/" className="text-2xl text-white">
 					Logo
