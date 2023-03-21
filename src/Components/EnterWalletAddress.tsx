@@ -40,7 +40,7 @@ export default function EnterWalletAddress() {
 	}
 
 	return (
-		<form className="mt-10">
+		<div className="mt-10">
 			<div className="flex items-center justify-between gap-5">
 				<h3 className="text-lg font-semibold">Enter the wallet address</h3>
 				<div className="h-5 w-5">
@@ -72,6 +72,6 @@ export default function EnterWalletAddress() {
 				className="mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white transition-all hover:bg-[#370b97c9]
 							active:scale-[1.06] disabled:transform-none disabled:bg-[#370b97c9] disabled:opacity-[0.4]"
 			/>
-		</form>
+		</div>
 	);
 }
