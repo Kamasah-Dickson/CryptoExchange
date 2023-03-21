@@ -7,6 +7,8 @@ import { useState, useRef, useCallback, useReducer } from "react";
 const initialState = {
 	flexDirection: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
 	flexDirection2: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+	email: "",
+	wallet_address: "",
 };
 
 type actionType = {
@@ -29,6 +31,16 @@ function reducer(
 				...state,
 				flexDirection2: action.value,
 			};
+		case "walletInput":
+			return {
+				...state,
+				wallet_address: action.value,
+			};
+		case "email":
+			return {
+				...state,
+				email: action.value,
+			};
 
 		default:
 			return state;
@@ -37,13 +49,9 @@ function reducer(
 
 function AdditionalInfo() {
 	const [showInfo, setShowInfo] = useState(false);
-
 	const [reducerState, dispatch] = useReducer(reducer, initialState);
-
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const handleFocus2 = useRef<HTMLInputElement>(null);
-	const [inputValue, setInputValue] = useState("");
-	const [inputValue2, setInputValue2] = useState("");
 
 	const handleClick = useCallback(() => {
 		if (handleFocus.current) {
@@ -58,7 +66,7 @@ function AdditionalInfo() {
 	}, []);
 
 	function handleBlur() {
-		if (!inputValue) {
+		if (!reducerState.wallet_address) {
 			dispatch({
 				type: "flex-direction",
 				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
@@ -73,7 +81,7 @@ function AdditionalInfo() {
 	}
 
 	function handleBlur2() {
-		if (!inputValue2) {
+		if (!reducerState.email) {
 			dispatch({
 				type: "flex-direction2",
 				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
@@ -88,7 +96,7 @@ function AdditionalInfo() {
 	}
 
 	function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setInputValue(event.target.value);
+		dispatch({ type: "walletInput", value: event.target.value });
 
 		if (event.target.value) {
 			dispatch({
@@ -104,7 +112,7 @@ function AdditionalInfo() {
 		}
 	}
 	function handleInputChange2(event: React.ChangeEvent<HTMLInputElement>) {
-		setInputValue2(event.target.value);
+		dispatch({ type: "email", value: event.target.value });
 
 		if (event.target.value) {
 			dispatch({
@@ -161,6 +169,7 @@ function AdditionalInfo() {
 					>
 						<div className="text-[#00000094]">Recipient Bitcoin address</div>
 						<input
+							name="wallet_address"
 							ref={handleFocus}
 							onChange={(e) => handleInputChange(e)}
 							onBlur={handleBlur}
@@ -190,6 +199,7 @@ function AdditionalInfo() {
 					>
 						<div className="text-[#00000094]">Recipient Bitcoin address</div>
 						<input
+							name="email"
 							ref={handleFocus2}
 							onChange={(e) => handleInputChange2(e)}
 							onBlur={handleBlur2}
