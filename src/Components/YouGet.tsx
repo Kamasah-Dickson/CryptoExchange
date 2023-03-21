@@ -61,7 +61,7 @@ function YouGet({
 		handleResponseCurrency(responseCoins);
 	}
 
-	console.log(responseCurrency);
+	// console.log(responseCurrency);
 
 	return (
 		<div className="flex w-full items-center justify-between gap-[3px]">
