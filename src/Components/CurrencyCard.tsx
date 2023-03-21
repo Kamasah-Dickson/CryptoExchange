@@ -7,14 +7,14 @@ import axios from "axios";
 function CurrencyCard() {
 	const [currencies, setCurrencies] = useState([
 		{
-			btc: 0.12312,
-			usd: 0.53245,
-			eth: 0.75234,
-			ltc: 0.3436,
-			xmr: 2.34523,
-			poof: 7.53453,
-			loom: 0.43434,
-			volt: 4.33554,
+			btc: 0.123677612,
+			usd: 1.868767645,
+			eth: 0.756766234,
+			ltc: 0.346766736,
+			xmr: 2.344544523,
+			poof: 7.53453453,
+			loom: 0.44533434,
+			volt: 4.33433554,
 		},
 	]);
 
@@ -22,12 +22,14 @@ function CurrencyCard() {
 	const [responseCurrency, setResponseCurrency] = useState("eth");
 
 	const [activeTab, setActiveTab] = useState(2);
-	const [userCoins, setUserCoins] = useState(0.2);
+	const [userCoins, setUserCoins] = useState(0.1);
 	const [responseCoins, setResponseCoins] = useState(0.0123);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 	}
+
+	console.log(userCoins);
 
 	return (
 		<form
@@ -76,7 +78,6 @@ function CurrencyCard() {
 									responseCurrency={responseCurrency}
 									currencies={Object.keys(currencies[0])}
 									setUserCurrency={setUserCurrency}
-									setResponseCurrency={setResponseCurrency}
 									responseCoins={responseCoins}
 									fullCurrencies={currencies}
 									userCoins={userCoins}
@@ -91,8 +92,6 @@ function CurrencyCard() {
 									fullCurrencies={currencies}
 									userCurrency={userCurrency}
 									responseCurrency={responseCurrency}
-									userCoins={userCoins}
-									setUserCoins={setUserCoins}
 								/>
 							</div>
 						) : (
@@ -101,9 +100,11 @@ function CurrencyCard() {
 					</div>
 					<div className="pb-10 pt-5">
 						<input
+							disabled={userCoins > 0 ? false : true}
 							type="submit"
 							value="Exchange"
-							className="mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white transition-all hover:bg-[#370b97c9] active:scale-[1.06]"
+							className="mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white transition-all hover:bg-[#370b97c9]
+							active:scale-[1.06] disabled:transform-none disabled:bg-[#370b97c9] disabled:opacity-[0.4]"
 						/>
 					</div>
 				</div>
