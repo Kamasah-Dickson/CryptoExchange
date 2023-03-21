@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import YouSend from "./YouSend";
 import YouGet from "./YouGet";
-
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CurrencyCard() {
 	const [currencies, setCurrencies] = useState([
@@ -20,6 +20,7 @@ function CurrencyCard() {
 
 	const [userCurrency, setUserCurrency] = useState("btc");
 	const [responseCurrency, setResponseCurrency] = useState("eth");
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState(2);
 	const [userCoins, setUserCoins] = useState(0.1);
@@ -27,9 +28,8 @@ function CurrencyCard() {
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+		navigate("/exchange");
 	}
-
-	console.log(userCoins);
 
 	return (
 		<form
@@ -83,6 +83,7 @@ function CurrencyCard() {
 									userCoins={userCoins}
 									setUserCoins={setUserCoins}
 									setResponseCoins={setResponseCoins}
+									setResponseCurrency={setResponseCurrency}
 								/>
 								<YouGet
 									responseCoins={responseCoins}
