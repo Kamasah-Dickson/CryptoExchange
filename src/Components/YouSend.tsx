@@ -21,6 +21,7 @@ interface exchangeProp {
 		volt: number;
 	}[];
 	responseCoins: number;
+	setResponseCurrency: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function YouSend({
@@ -28,6 +29,7 @@ function YouSend({
 	userCoins,
 	setUserCoins,
 	setUserCurrency,
+	setResponseCurrency,
 	setResponseCoins,
 	userCurrency,
 	responseCurrency,
@@ -41,14 +43,6 @@ function YouSend({
 		if (parseFloat(value) >= 0) {
 			setUserCoins(parseFloat(value));
 		}
-
-		// if (
-		// 	(fullCurrencies[0] as { [key: string]: number })[userCurrency] ===
-		// 	(fullCurrencies[0] as { [key: string]: number })[responseCurrency]
-		// ) {
-		// 	setUserCurrency(responseCurrency);
-		// 	setResponseCurrency(userCurrency);
-		// }
 	}
 
 	//fix precition errors leading to zeroes using decimal.js
@@ -89,6 +83,14 @@ function YouSend({
 		const value = e.target.value;
 		setUserCurrency(value);
 		handleUserAmountChange(userCoins);
+
+		// if (
+		// 	(fullCurrencies[0] as { [key: string]: number })[userCurrency] ===
+		// 	(fullCurrencies[0] as { [key: string]: number })[responseCurrency]
+		// ) {
+		// 	setUserCurrency(responseCurrency);
+		// 	setResponseCurrency(userCurrency);
+		// }
 	}
 
 	return (
