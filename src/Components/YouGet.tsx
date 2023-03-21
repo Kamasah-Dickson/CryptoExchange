@@ -18,8 +18,6 @@ interface exchangeProp {
 	}[];
 	userCurrency: string;
 	responseCurrency: string;
-	userCoins: number;
-	setUserCoins: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function YouGet({
@@ -30,12 +28,10 @@ function YouGet({
 	fullCurrencies,
 	userCurrency,
 	responseCurrency,
-	userCoins,
-	setUserCoins,
 }: exchangeProp) {
 	function updateResponseOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
-		setResponseCoins(parseFloat(value));
+		setResponseCoins(Number(value));
 	}
 
 	//fix precition errors leading to zeroes using decimal.js
@@ -49,15 +45,15 @@ function YouGet({
 	);
 
 	function handleResponseCurrency(responseCoins: number) {
-		setResponseCoins(
-			parseFloat(
-				(
-					(responseCoinsDecimal.toNumber() * userExchangeRate2.toNumber()) /
-					responseExchangeRate2.toNumber()
-				).toFixed(5)
-			)
+		const result = parseFloat(
+			(
+				(new Decimal(responseCoins).toNumber() * userExchangeRate2.toNumber()) /
+				responseExchangeRate2.toNumber()
+			).toFixed(7)
 		);
+		setResponseCoins(result);
 	}
+
 	//handle responseCurrency changes
 	function handleCurrency(e: React.ChangeEvent<HTMLSelectElement>) {
 		const value = e.target.value;
@@ -68,26 +64,26 @@ function YouGet({
 	console.log(responseCurrency);
 
 	return (
-		<div className="flex w-full items-center justify-between gap-1">
-			<div className=" relative flex h-[55px] flex-[2] items-center justify-between">
+		<div className="flex w-full items-center justify-between gap-[3px]">
+			<div className=" relative flex h-[60px] flex-[2] items-center justify-between">
 				<div className="absolute pl-[30px] font-small text-[#525151]">
 					You Get
 				</div>
 
 				<input
+					disabled
 					value={responseCoins}
 					onChange={(e) => updateResponseOptions(e)}
-					dir="rtl"
 					inputMode="decimal"
-					type="text"
-					className=" h-full w-full rounded-l-md  bg-[#8aa0c03f] px-2 pl-[110px] text-2xl outline-1 outline-[#604adbaf] focus:bg-[rgba(70,46,124,0.13)]"
+					type="number"
+					className="h-full w-full rounded-l-md bg-[#8aa0c031] px-2  pl-[110px] text-right text-2xl font-semibold outline-1 outline-[#604adbaf] focus:bg-[rgba(70,46,124,0.13)]"
 				/>
 			</div>
 			<select
 				onChange={(e) => handleCurrency(e)}
-				name="userOption"
-				id=""
-				className="h-[55px] flex-1 cursor-pointer rounded-r-md bg-[#8aa0c063] p-1 font-bold uppercase text-black outline-none transition-all hover:bg-[#370b97] hover:text-white"
+				name="responseCoins"
+				id="responseCoins"
+				className="h-[60px] flex-1 cursor-pointer rounded-r-md bg-[#8aa0c059] p-1 font-bold uppercase text-black outline-none transition-all hover:bg-[#370b97] hover:text-white"
 			>
 				{currencies.map((currency, index) => {
 					return (
