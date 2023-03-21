@@ -1,5 +1,5 @@
+import { useContext } from "react";
 import CurrencyCard from "./Components/CurrencyCard";
-import Exchange from "./Components/CurrencyCard";
 import Header from "./Components/Header";
 
 function App() {
