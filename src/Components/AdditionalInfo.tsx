@@ -2,21 +2,49 @@ import {
 	MdOutlineKeyboardArrowDown,
 	MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useReducer } from "react";
+
+const initialState = {
+	flexDirection: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+	flexDirection2: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+};
+
+type actionType = {
+	type: string;
+	value: string;
+};
+
+function reducer(
+	state: typeof initialState,
+	action: actionType
+): typeof initialState {
+	switch (action.type) {
+		case "flex-direction":
+			return {
+				...state,
+				flexDirection: action.value,
+			};
+		case "flex-direction2":
+			return {
+				...state,
+				flexDirection2: action.value,
+			};
+
+		default:
+			return state;
+	}
+}
 
 function AdditionalInfo() {
 	const [showInfo, setShowInfo] = useState(false);
+
+	const [reducerState, dispatch] = useReducer(reducer, initialState);
 
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const handleFocus2 = useRef<HTMLInputElement>(null);
 	const [inputValue, setInputValue] = useState("");
 	const [inputValue2, setInputValue2] = useState("");
-	const [flexDirection, setFlexDirection] = useState(
-		"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
-	);
-	const [flexDirection2, setFlexDirection2] = useState(
-		"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
-	);
+
 	const handleClick = useCallback(() => {
 		if (handleFocus.current) {
 			handleFocus.current.focus();
@@ -31,25 +59,31 @@ function AdditionalInfo() {
 
 	function handleBlur() {
 		if (!inputValue) {
-			setFlexDirection(
-				"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
-			);
+			dispatch({
+				type: "flex-direction",
+				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+			});
 		} else {
-			setFlexDirection(
-				"flex-col items-start border border-black py-2 text-sm bg-transparent"
-			);
+			dispatch({
+				type: "flex-direction",
+				value:
+					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+			});
 		}
 	}
 
 	function handleBlur2() {
 		if (!inputValue2) {
-			setFlexDirection2(
-				"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
-			);
+			dispatch({
+				type: "flex-direction2",
+				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+			});
 		} else {
-			setFlexDirection2(
-				"flex-col items-start border border-black py-2 text-sm bg-transparent"
-			);
+			dispatch({
+				type: "flex-direction2",
+				value:
+					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+			});
 		}
 	}
 
@@ -57,26 +91,32 @@ function AdditionalInfo() {
 		setInputValue(event.target.value);
 
 		if (event.target.value) {
-			setFlexDirection(
-				"flex-col items-start border border-black py-2 text-sm bg-transparent"
-			);
+			dispatch({
+				type: "flex-direction",
+				value:
+					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+			});
 		} else {
-			setFlexDirection(
-				"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
-			);
+			dispatch({
+				type: "flex-direction",
+				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+			});
 		}
 	}
 	function handleInputChange2(event: React.ChangeEvent<HTMLInputElement>) {
 		setInputValue2(event.target.value);
 
 		if (event.target.value) {
-			setFlexDirection2(
-				"flex-col items-start border border-black py-2 text-sm bg-transparent"
-			);
+			dispatch({
+				type: "flex-direction2",
+				value:
+					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+			});
 		} else {
-			setFlexDirection2(
-				"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
-			);
+			dispatch({
+				type: "flex-direction2",
+				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+			});
 		}
 	}
 
@@ -111,11 +151,13 @@ function AdditionalInfo() {
 					<div
 						onClick={() => (
 							handleClick(),
-							setFlexDirection(
-								"flex-col items-start border border-black py-2 text-sm bg-transparent"
-							)
+							dispatch({
+								type: "flex-direction",
+								value:
+									"flex-col items-start border border-black py-2 text-sm bg-transparent",
+							})
 						)}
-						className={`${flexDirection} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
+						className={`${reducerState.flexDirection} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
 					>
 						<div className="text-[#00000094]">Recipient Bitcoin address</div>
 						<input
@@ -138,11 +180,13 @@ function AdditionalInfo() {
 					<div
 						onClick={() => (
 							handleClick2(),
-							setFlexDirection2(
-								"flex-col items-start border border-black py-2 text-sm bg-transparent"
-							)
+							dispatch({
+								type: "flex-direction2",
+								value:
+									"flex-col items-start border border-black py-2 text-sm bg-transparent",
+							})
 						)}
-						className={`${flexDirection2} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
+						className={`${reducerState.flexDirection2} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
 					>
 						<div className="text-[#00000094]">Recipient Bitcoin address</div>
 						<input
