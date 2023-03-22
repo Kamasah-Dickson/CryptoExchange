@@ -84,7 +84,7 @@ export default function EnterWalletAddress({
 				/>
 			</div>
 			<input
-				disabled={!inputValue}
+				disabled={!inputValue.user_wallet_address}
 				type="submit"
 				value="Create an exchange"
 				className="mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white transition-all hover:bg-[#370b97c9]

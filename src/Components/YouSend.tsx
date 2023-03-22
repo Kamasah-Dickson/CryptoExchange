@@ -125,7 +125,7 @@ function YouSend({
 
 	return (
 		<div className="flex w-full items-center justify-between gap-[3px]">
-			<div className=" relative flex h-[55px] flex-[2] items-center justify-between">
+			<div className=" relative flex h-[50px] flex-[2] items-center justify-between">
 				<div className="absolute pl-[30px] font-light text-[white]">
 					You send
 				</div>
@@ -142,7 +142,7 @@ function YouSend({
 			<select
 				onChange={(e) => handleCurrency(e)}
 				name="userGet"
-				className="h-[55px] flex-1 cursor-pointer rounded-r-md bg-[#210857]  p-1  font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3]"
+				className="h-[50px] flex-1 cursor-pointer rounded-r-md bg-[#210857]  p-1  font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3]"
 			>
 				{Object.keys(currencies[0]).map((currency, index) => {
 					return (

@@ -5,6 +5,7 @@ import axios from "axios";
 import { currencyNameContext } from "../contexts/contexts";
 import EnterWalletAddress from "./EnterWalletAddress";
 import AdditionalInfo from "./AdditionalInfo";
+import AnyQuestions from "./AnyQuestions";
 
 function CurrencyCard() {
 	const {
@@ -25,15 +26,13 @@ function CurrencyCard() {
 
 	return (
 		<form
-			className="my-max2 my-scrollbar my-5 mt-10 max-h-[400px] overflow-x-hidden rounded-3xl bg-[#180442] text-white shadow-2xl"
+			className="my-max2 my-scrollbar my-5 mt-10 rounded-3xl bg-[#180442] text-white shadow-2xl"
 			onSubmit={(e) => handleSubmit(e)}
 		>
 			<div className="flex flex-col justify-center p-4">
-				{/* ====tab header==== */}
 				<h2 className="mt-4 text-center text-2xl font-semibold text-white md:text-3xl">
 					Crypto Exchange
 				</h2>
-				{/* ==tabs==== */}
 				<div className="px-10">
 					<div className="mx-auto mt-10">
 						<div className="flex flex-col items-center justify-center gap-7">
@@ -73,6 +72,13 @@ function CurrencyCard() {
 					>
 						<EnterWalletAddress currencyAddresses={currencyAddresses} />
 						<AdditionalInfo />
+					</div>
+					<div
+						className={`${
+							showAdditionalDetails ? "h-auto" : "h-0 overflow-hidden"
+						}`}
+					>
+						<AnyQuestions />
 					</div>
 				</div>
 			</div>

@@ -42,6 +42,9 @@
 			display: none;
 		}
 	}
+	.my-trans {
+		transition: height 0.4s ease;
+	}
 	.my-shadow {
 		box-shadow: inset 0px 0px 70px -10px rgb(47, 16, 221);
 	}
