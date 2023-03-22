@@ -2,7 +2,8 @@ import {
 	MdOutlineKeyboardArrowDown,
 	MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import { useState, useRef, useCallback, useReducer } from "react";
+import { useState, useRef, useCallback, useReducer, useContext } from "react";
+import { currencyNameContext } from "../contexts/contexts";
 
 const initialState = {
 	flexDirection: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
@@ -52,7 +53,7 @@ function AdditionalInfo() {
 	const [reducerState, dispatch] = useReducer(reducer, initialState);
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const handleFocus2 = useRef<HTMLInputElement>(null);
-
+	const { currencyFullname } = useContext(currencyNameContext);
 	const handleClick = useCallback(() => {
 		if (handleFocus.current) {
 			handleFocus.current.focus();
@@ -75,7 +76,7 @@ function AdditionalInfo() {
 			dispatch({
 				type: "flex-direction",
 				value:
-					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+					"flex-col items-start border border-white py-2 text-sm bg-transparent",
 			});
 		}
 	}
@@ -90,7 +91,7 @@ function AdditionalInfo() {
 			dispatch({
 				type: "flex-direction2",
 				value:
-					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+					"flex-col items-start border border-white py-2 text-sm bg-transparent",
 			});
 		}
 	}
@@ -102,7 +103,7 @@ function AdditionalInfo() {
 			dispatch({
 				type: "flex-direction",
 				value:
-					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+					"flex-col items-start border border-white py-2 text-sm bg-transparent",
 			});
 		} else {
 			dispatch({
@@ -118,7 +119,7 @@ function AdditionalInfo() {
 			dispatch({
 				type: "flex-direction2",
 				value:
-					"flex-col items-start border border-black py-2 text-sm bg-transparent",
+					"flex-col items-start border border-white py-2 text-sm bg-transparent",
 			});
 		} else {
 			dispatch({
@@ -149,7 +150,7 @@ function AdditionalInfo() {
 			>
 				<div className="flex items-center justify-center gap-5">
 					<div className="flex-1">
-						<h3 className="font-medium text-black">
+						<h3 className="font-medium text-white">
 							Enter your refund Address
 						</h3>
 						<p className="text-sm text-[grey]">
@@ -162,12 +163,14 @@ function AdditionalInfo() {
 							dispatch({
 								type: "flex-direction",
 								value:
-									"flex-col items-start border border-black py-2 text-sm bg-transparent",
+									"flex-col items-start border border-white py-2 text-sm bg-transparent",
 							})
 						)}
 						className={`${reducerState.flexDirection} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
 					>
-						<div className="text-[#00000094]">Recipient Bitcoin address</div>
+						<div className="text-[white]">
+							Recipient {currencyFullname} address
+						</div>
 						<input
 							name="wallet_address"
 							ref={handleFocus}
@@ -180,7 +183,7 @@ function AdditionalInfo() {
 				</div>
 				<div className="flex items-center justify-center gap-5">
 					<div className="flex-1">
-						<h3 className="font-medium text-black">Add your Email</h3>
+						<h3 className="font-medium text-white">Add your Email</h3>
 						<p className="text-sm text-[grey]">
 							Add your email to get notifications about this exchange.
 						</p>
@@ -192,12 +195,12 @@ function AdditionalInfo() {
 							dispatch({
 								type: "flex-direction2",
 								value:
-									"flex-col items-start border border-black py-2 text-sm bg-transparent",
+									"flex-col items-start border border-white py-2 text-sm bg-transparent",
 							})
 						)}
 						className={`${reducerState.flexDirection2} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
 					>
-						<div className="text-[#00000094]">Recipient Bitcoin address</div>
+						<div className="text-[white]">Enter your address</div>
 						<input
 							name="email"
 							ref={handleFocus2}

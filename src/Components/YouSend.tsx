@@ -1,27 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Decimal from "decimal.js";
+import { currencyNameContext } from "../contexts/contexts";
 
 interface exchangeProp {
-	currencies: string[];
 	userCoins: number;
 	setUserCoins: React.Dispatch<React.SetStateAction<number>>;
-	setResponseCoins: React.Dispatch<React.SetStateAction<number>>;
+
+	setResponseCurrencyData: React.Dispatch<
+		React.SetStateAction<{
+			response_currency: string;
+			response_coins: number;
+		}>
+	>;
+
 	userCurrency: string;
-	responseCurrency: string;
+	responseCurrencyData: {
+		response_currency: string;
+		response_coins: number;
+	};
 	setUserCurrency: React.Dispatch<React.SetStateAction<string>>;
-	fullCurrencies: {
-		btc: number;
-		usd: number;
-		eth: number;
-		ltc: number;
-		xmr: number;
-		poof: number;
-		loom: number;
-		volt: number;
+
+	currencies: {
+		btc: {
+			value: number;
+		};
+		usd: {
+			value: number;
+		};
+		eth: {
+			value: number;
+		};
+		ltc: {
+			value: number;
+		};
+		xmr: {
+			value: number;
+		};
+		poof: {
+			value: number;
+		};
+		loom: {
+			value: number;
+		};
+		volt: {
+			value: number;
+		};
 	}[];
-	responseCoins: number;
-	setResponseCurrency: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function YouSend({
@@ -29,15 +54,10 @@ function YouSend({
 	userCoins,
 	setUserCoins,
 	setUserCurrency,
-	setResponseCurrency,
-	setResponseCoins,
+	setResponseCurrencyData,
 	userCurrency,
-	responseCurrency,
-	fullCurrencies,
-	responseCoins,
+	responseCurrencyData,
 }: exchangeProp) {
-	const [showInput, setShowInput] = useState(false);
-
 	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
 		if (parseFloat(value) >= 0) {
@@ -46,35 +66,48 @@ function YouSend({
 	}
 
 	//fix precition errors leading to zeroes using decimal.js
-	const userCoinsDecimal = new Decimal(userCoins);
+	const userCoinsDecimal = new Decimal(userCoins).toNumber();
 	const userExchangeRate = new Decimal(
-		(fullCurrencies[0] as { [key: string]: number })[userCurrency]
-	);
+		(currencies[0] as any)[userCurrency].value
+	).toNumber();
 
 	const responseExchangeRate = new Decimal(
-		(fullCurrencies[0] as { [key: string]: number })[responseCurrency]
-	);
+		(currencies[0] as any)[responseCurrencyData.response_currency].value
+	).toNumber();
 
 	useEffect(() => {
-		setResponseCoins(
-			parseFloat(
-				(
-					(userCoinsDecimal.toNumber() / userExchangeRate.toNumber()) *
-					responseExchangeRate.toNumber()
-				).toFixed(7)
-			)
-		);
-	}, [userCoins, userCurrency, currencies, responseCurrency, responseCoins]);
+		setResponseCurrencyData((prev) => ({
+			...prev,
+			response_coins: parseFloat(
+				((userCoinsDecimal / userExchangeRate) * responseExchangeRate).toFixed(
+					7
+				)
+			),
+		}));
+	}, [
+		userCoins,
+		userCurrency,
+		currencies,
+		responseCurrencyData,
+		responseCurrencyData,
+	]);
+	[
+		userCoins,
+		userCurrency,
+		currencies,
+		responseCurrencyData,
+		responseCurrencyData,
+	];
 
 	function handleUserAmountChange(userCoins: number) {
-		setResponseCoins(
-			parseFloat(
-				(
-					(userCoinsDecimal.toNumber() * responseExchangeRate.toNumber()) /
-					userExchangeRate.toNumber()
-				).toFixed(7)
-			)
-		);
+		setResponseCurrencyData((prev) => ({
+			...prev,
+			response_coins: parseFloat(
+				((userCoinsDecimal * responseExchangeRate) / userExchangeRate).toFixed(
+					7
+				)
+			),
+		}));
 		setUserCoins(userCoins);
 	}
 
@@ -83,63 +116,44 @@ function YouSend({
 		const value = e.target.value;
 		setUserCurrency(value);
 		handleUserAmountChange(userCoins);
-
 		// if (
 		// 	(fullCurrencies[0] as { [key: string]: number })[userCurrency] ===
-		// 	(fullCurrencies[0] as { [key: string]: number })[responseCurrency]
+		// 	(fullCurrencies[0] as { [key: string]: number })[responseCurrencyData]
 		// ) {
-		// 	setUserCurrency(responseCurrency);
-		// 	setResponseCurrency(userCurrency);
+		// 	setUserCurrency(responseCurrencyData);
+		// 	setResponseCurrencyData(userCurrency);
 		// }
 	}
 
 	return (
 		<div className="flex w-full items-center justify-between gap-[3px]">
-			{showInput ? (
-				<div className=" flex w-full items-center justify-center">
-					<input
-						type="text"
-						placeholder="Enter a cryptocurrency"
-						className="w-full"
-					/>
-					<AiOutlineClose
-						size={22}
-						onClick={() => setShowInput(false)}
-						className="cursor-pointer"
-					/>
+			<div className=" relative flex h-[55px] flex-[2] items-center justify-between">
+				<div className="absolute pl-[30px] font-light text-[white]">
+					You send
 				</div>
-			) : (
-				<>
-					<div className=" relative flex h-[60px] flex-[2] items-center justify-between">
-						<div className="absolute pl-[30px] font-small text-[#525151]">
-							You send
-						</div>
-						<input
-							autoComplete="off"
-							value={userCoins}
-							name="userCoin"
-							onChange={(e) => updateUserOptions(e)}
-							type="number"
-							className=" h-full w-full rounded-l-md bg-[#8aa0c031]
-					px-2 pl-[110px] text-right text-2xl font-semibold outline-1 outline-[#604adbaf] focus:bg-[rgba(70,46,124,0.13)]"
-						/>
-					</div>
-					<select
-						// onClick={() => setShowInput(true)}
-						onChange={(e) => handleCurrency(e)}
-						name="userGet"
-						className="h-[60px] flex-1 cursor-pointer rounded-r-md bg-[#8aa0c059]  p-1  font-bold uppercase text-black outline-none transition-all hover:bg-[#370b97] hover:text-white"
-					>
-						{currencies.map((currency, index) => {
-							return (
-								<option className="" key={index} value={currency}>
-									{currency}
-								</option>
-							);
-						})}
-					</select>
-				</>
-			)}
+				<input
+					autoComplete="off"
+					value={userCoins}
+					name="userCoin"
+					onChange={(e) => updateUserOptions(e)}
+					type="number"
+					className=" h-full w-full rounded-l-md bg-[#8aa0c031] px-2
+					pl-[110px] text-right text-xl font-semibold text-white  focus:bg-[rgba(70,46,124,0.13)]"
+				/>
+			</div>
+			<select
+				onChange={(e) => handleCurrency(e)}
+				name="userGet"
+				className="h-[55px] flex-1 cursor-pointer rounded-r-md bg-[#210857]  p-1  font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3]"
+			>
+				{Object.keys(currencies[0]).map((currency, index) => {
+					return (
+						<option className="" key={index} value={currency}>
+							{currency}
+						</option>
+					);
+				})}
+			</select>
 		</div>
 	);
 }

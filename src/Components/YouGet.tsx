@@ -1,91 +1,123 @@
-import { useEffect } from "react";
+import { useContext } from "react";
 import Decimal from "decimal.js";
+import { currencyNameContext } from "../contexts/contexts";
 
 interface exchangeProp {
-	currencies: string[];
-	responseCoins: number;
-	setResponseCoins: React.Dispatch<React.SetStateAction<number>>;
-	setResponseCurrency: React.Dispatch<React.SetStateAction<string>>;
-	fullCurrencies: {
-		btc: number;
-		usd: number;
-		eth: number;
-		ltc: number;
-		xmr: number;
-		poof: number;
-		loom: number;
-		volt: number;
+	currencies: {
+		btc: {
+			value: number;
+		};
+		usd: {
+			value: number;
+		};
+		eth: {
+			value: number;
+		};
+		ltc: {
+			value: number;
+		};
+		xmr: {
+			value: number;
+		};
+		poof: {
+			value: number;
+		};
+		loom: {
+			value: number;
+		};
+		volt: {
+			value: number;
+		};
 	}[];
 	userCurrency: string;
-	responseCurrency: string;
+	setResponseCurrencyData: React.Dispatch<
+		React.SetStateAction<{
+			response_currency: string;
+			response_coins: number;
+		}>
+	>;
+
+	responseCurrencyData: {
+		response_currency: string;
+		response_coins: number;
+	};
 }
 
 function YouGet({
 	currencies,
-	setResponseCoins,
-	responseCoins,
-	setResponseCurrency,
-	fullCurrencies,
 	userCurrency,
-	responseCurrency,
+	setResponseCurrencyData,
+	responseCurrencyData,
 }: exchangeProp) {
 	function updateResponseOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
-		setResponseCoins(Number(value));
+		setResponseCurrencyData((prev) => ({
+			...prev,
+			response_coins: Number(value),
+		}));
 	}
+
+	const { setCurrencyFullname } = useContext(currencyNameContext);
 
 	//fix precition errors leading to zeroes using decimal.js
-	const responseCoinsDecimal = new Decimal(responseCoins);
-	const userExchangeRate2 = new Decimal(
-		(fullCurrencies[0] as { [key: string]: number })[userCurrency]
-	);
+	const responseCurrencyDataDecimal = new Decimal(
+		responseCurrencyData.response_coins
+	).toNumber();
+	const userExchangeRate2 = (currencies[0] as any)[userCurrency];
 
-	const responseExchangeRate2 = new Decimal(
-		(fullCurrencies[0] as { [key: string]: number })[responseCurrency]
-	);
+	const responseExchangeRate2 = (currencies[0] as any)[
+		responseCurrencyData.response_currency
+	];
 
-	function handleResponseCurrency(responseCoins: number) {
+	function handleresponseCurrencyData(responseCurrencyData: number) {
 		const result = parseFloat(
 			(
-				(new Decimal(responseCoins).toNumber() * userExchangeRate2.toNumber()) /
-				responseExchangeRate2.toNumber()
+				(responseCurrencyData * userExchangeRate2) /
+				responseExchangeRate2
 			).toFixed(7)
 		);
-		setResponseCoins(result);
+		setResponseCurrencyData((prev) => ({
+			...prev,
+			response_coins: Number(result),
+		}));
 	}
 
-	//handle responseCurrency changes
+	//handle responseCurrencyData changes
 	function handleCurrency(e: React.ChangeEvent<HTMLSelectElement>) {
-		const value = e.target.value;
-		setResponseCurrency(value);
-		handleResponseCurrency(responseCoins);
-	}
+		setResponseCurrencyData((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value,
+		}));
+		setCurrencyFullname((currencies[0] as any)[e.target.name].name);
 
-	// console.log(responseCurrency);
+		handleresponseCurrencyData(responseCurrencyData.response_coins);
+	}
 
 	return (
 		<div className="flex w-full items-center justify-between gap-[3px]">
-			<div className=" relative flex h-[60px] flex-[2] items-center justify-between">
-				<div className="absolute pl-[30px] font-small text-[#525151]">
+			<div className=" relative flex h-[55px] flex-[2] items-center justify-between">
+				<div className="absolute pl-[30px] font-light text-[white]">
 					You Get
 				</div>
 
 				<input
 					disabled
-					value={responseCoins}
+					name="responseCurrencyData"
+					value={responseCurrencyData.response_coins}
 					onChange={(e) => updateResponseOptions(e)}
 					inputMode="decimal"
 					type="number"
-					className="h-full w-full rounded-l-md bg-[#8aa0c031] px-2  pl-[110px] text-right text-2xl font-semibold outline-1 outline-[#604adbaf] focus:bg-[rgba(70,46,124,0.13)]"
+					className="h-full w-full rounded-l-md bg-[#8aa0c031] px-2  pl-[110px] text-right text-xl font-semibold outline-1 outline-[#604adbaf] focus:bg-[rgba(70,46,124,0.13)]"
 				/>
 			</div>
 			<select
+				// value={}
 				onChange={(e) => handleCurrency(e)}
-				name="responseCoins"
-				id="responseCoins"
-				className="h-[60px] flex-1 cursor-pointer rounded-r-md bg-[#8aa0c059] p-1 font-bold uppercase text-black outline-none transition-all hover:bg-[#370b97] hover:text-white"
+				name="responseCurrencyData"
+				id="responseCurrencyData"
+				className="h-[55px] flex-1 cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3]"
 			>
-				{currencies.map((currency, index) => {
+				{Object.keys(currencies[0]).map((currency, index) => {
 					return (
 						<option key={index} value={currency}>
 							{currency}
@@ -96,5 +128,4 @@ function YouGet({
 		</div>
 	);
 }
-
 export default YouGet;

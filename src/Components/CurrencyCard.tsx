@@ -7,14 +7,13 @@ import EnterWalletAddress from "./EnterWalletAddress";
 import AdditionalInfo from "./AdditionalInfo";
 
 function CurrencyCard() {
-	const { setCurrencyFullname, currencyFullname, currencies, setCurrencies } =
-		useContext(currencyNameContext);
-
+	const { currencyFullname, currencies } = useContext(currencyNameContext);
 	const [userCurrency, setUserCurrency] = useState("btc");
-	const [responseCurrency, setResponseCurrency] = useState("eth");
-
+	const [responseCurrencyData, setResponseCurrencyData] = useState({
+		response_currency: "eth",
+		response_coins: 0.0123,
+	});
 	const [userCoins, setUserCoins] = useState(0.1);
-	const [responseCoins, setResponseCoins] = useState(0.0123);
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -24,12 +23,12 @@ function CurrencyCard() {
 
 	return (
 		<form
-			className="my-max2 my-scrollbar my-5 mt-10 max-h-[450px] overflow-x-hidden rounded-3xl bg-white shadow-2xl"
+			className="my-max2 my-scrollbar my-5 mt-10 max-h-[400px] overflow-x-hidden rounded-3xl bg-[#180442] text-white shadow-2xl"
 			onSubmit={(e) => handleSubmit(e)}
 		>
 			<div className="flex flex-col justify-center p-4">
 				{/* ====tab header==== */}
-				<h2 className=" text-center text-2xl font-bold text-black md:text-3xl">
+				<h2 className="mt-4 text-center text-2xl font-semibold text-white md:text-3xl">
 					Crypto Exchange
 				</h2>
 				{/* ==tabs==== */}
@@ -38,22 +37,18 @@ function CurrencyCard() {
 						<div className="flex flex-col items-center justify-center gap-7">
 							<YouSend
 								userCurrency={userCurrency}
-								responseCurrency={responseCurrency}
+								responseCurrencyData={responseCurrencyData}
 								currencies={currencies}
 								setUserCurrency={setUserCurrency}
-								responseCoins={responseCoins}
 								userCoins={userCoins}
 								setUserCoins={setUserCoins}
-								setResponseCoins={setResponseCoins}
-								setResponseCurrency={setResponseCurrency}
+								setResponseCurrencyData={setResponseCurrencyData}
 							/>
 							<YouGet
-								responseCoins={responseCoins}
-								setResponseCoins={setResponseCoins}
-								setResponseCurrency={setResponseCurrency}
+								responseCurrencyData={responseCurrencyData}
+								setResponseCurrencyData={setResponseCurrencyData}
 								currencies={currencies}
 								userCurrency={userCurrency}
-								responseCurrency={responseCurrency}
 							/>
 						</div>
 					</div>
@@ -65,7 +60,7 @@ function CurrencyCard() {
 							className={`${
 								showAdditionalDetails
 									? "hidden"
-									: "mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white transition-all hover:bg-[#370b97c9] active:scale-[1.06] disabled:transform-none disabled:bg-[#370b97c9] disabled:opacity-[0.4]"
+									: "mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white hover:bg-[#370b97c9] active:scale-[1.03] disabled:transform-none disabled:bg-[#370b97c9] disabled:opacity-[0.4]"
 							}`}
 						/>
 					</div>

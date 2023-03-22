@@ -48,10 +48,10 @@ function Exchange() {
 	]);
 
 	const [userCurrency, setUserCurrency] = useState("btc");
-	const [responseCurrency, setResponseCurrency] = useState("eth");
+	const [responseCurrencyData, setResponseCurrencyData] = useState("eth");
 
 	const [userCoins, setUserCoins] = useState(0.1);
-	const [responseCoins, setResponseCoins] = useState(0.0123);
+	const [responseCurrencyData, setResponseCurrencyData] = useState(0.0123);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -70,22 +70,22 @@ function Exchange() {
 								<div className="flex flex-col items-center justify-center gap-7">
 									<YouSend
 										userCurrency={userCurrency}
-										responseCurrency={responseCurrency}
+										responseCurrencyData={responseCurrencyData}
 										currencies={currencies}
 										setUserCurrency={setUserCurrency}
-										responseCoins={responseCoins}
+										responseCurrencyData={responseCurrencyData}
 										userCoins={userCoins}
 										setUserCoins={setUserCoins}
-										setResponseCoins={setResponseCoins}
-										setResponseCurrency={setResponseCurrency}
+										setResponseCurrencyData={setResponseCurrencyData}
+										setResponseCurrencyData={setResponseCurrencyData}
 									/>
 									<YouGet
-										responseCoins={responseCoins}
-										setResponseCoins={setResponseCoins}
-										setResponseCurrency={setResponseCurrency}
+										responseCurrencyData={responseCurrencyData}
+										setResponseCurrencyData={setResponseCurrencyData}
+										setResponseCurrencyData={setResponseCurrencyData}
 										currencies={currencies}
 										userCurrency={userCurrency}
-										responseCurrency={responseCurrency}
+										responseCurrencyData={responseCurrencyData}
 									/>
 								</div>
 							</div>
