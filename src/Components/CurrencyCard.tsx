@@ -16,13 +16,42 @@ function CurrencyCard() {
 			loom: 0.44533434,
 			volt: 4.33433554,
 		},
+		// {
+		// 	btc: {
+		// 		value: 0.123677612,
+		// 	},
+
+		// 	usd: {
+		// 		value: 1.868767645,
+		// 	},
+		// 	eth: {
+		// 		value: 0.756766234,
+		// 	},
+		// 	ltc: {
+		// 		value: 0.346766736,
+		// 	},
+
+		// 	xmr: {
+		// 		value: 2.344544523,
+		// 	},
+		// 	poof: {
+		// 		value: 7.53453453,
+		// 	},
+		// 	loom: {
+		// 		value: 0.44533434,
+		// 	},
+		// 	volt: {
+		// 		value: 4.33433554,
+		// 	},
+		// },
 	]);
+
+	console.log(Object.values(currencies));
 
 	const [userCurrency, setUserCurrency] = useState("btc");
 	const [responseCurrency, setResponseCurrency] = useState("eth");
 	const navigate = useNavigate();
 
-	const [activeTab, setActiveTab] = useState(2);
 	const [userCoins, setUserCoins] = useState(0.1);
 	const [responseCoins, setResponseCoins] = useState(0.0123);
 
@@ -33,71 +62,40 @@ function CurrencyCard() {
 
 	return (
 		<form
-			className=" my-max2 mt-10 overflow-hidden rounded-3xl bg-white shadow-2xl"
+			className="my-max2 mt-10 overflow-hidden rounded-3xl bg-white shadow-2xl"
 			onSubmit={(e) => handleSubmit(e)}
 		>
-			<div className="justify-cente flex flex-col">
+			<div className="my-shadow flex flex-col justify-center p-4">
 				{/* ====tab header==== */}
-				<div className=" flex items-center justify-between bg-transparent">
-					<div
-						onClick={() => setActiveTab(2)}
-						className={`skewed-border ${
-							activeTab === 1 && "active"
-						} flex-1 cursor-pointer p-5 `}
-					>
-						<h2
-							className={`${
-								activeTab === 1 ? "skew-x-[15deg]" : ""
-							} text-center text-[15px] font-medium`}
-						>
-							Crypto Exchange
-						</h2>
-					</div>
-					<div
-						onClick={() => setActiveTab(1)}
-						className={`skewed-border ${
-							activeTab === 2 && "active2"
-						} flex-1 cursor-pointer p-5 `}
-					>
-						<h2
-							className={`${
-								activeTab === 2 ? "skew-x-[-15deg]" : ""
-							} text-center  text-[15px] font-medium `}
-						>
-							Buy/Sell Crypto
-						</h2>
-					</div>
-				</div>
+				<h2 className=" text-center text-2xl font-bold text-black md:text-3xl">
+					Crypto Exchange
+				</h2>
 				{/* ==tabs==== */}
 				<div className="px-10">
 					<div className="mx-auto mt-10">
-						{activeTab === 2 ? (
-							<div className="flex flex-col items-center justify-center gap-7">
-								<YouSend
-									userCurrency={userCurrency}
-									responseCurrency={responseCurrency}
-									currencies={Object.keys(currencies[0])}
-									setUserCurrency={setUserCurrency}
-									responseCoins={responseCoins}
-									fullCurrencies={currencies}
-									userCoins={userCoins}
-									setUserCoins={setUserCoins}
-									setResponseCoins={setResponseCoins}
-									setResponseCurrency={setResponseCurrency}
-								/>
-								<YouGet
-									responseCoins={responseCoins}
-									currencies={Object.keys(currencies[0])}
-									setResponseCoins={setResponseCoins}
-									setResponseCurrency={setResponseCurrency}
-									fullCurrencies={currencies}
-									userCurrency={userCurrency}
-									responseCurrency={responseCurrency}
-								/>
-							</div>
-						) : (
-							<div></div>
-						)}
+						<div className="flex flex-col items-center justify-center gap-7">
+							<YouSend
+								userCurrency={userCurrency}
+								responseCurrency={responseCurrency}
+								currencies={Object.keys(currencies[0])}
+								setUserCurrency={setUserCurrency}
+								responseCoins={responseCoins}
+								fullCurrencies={currencies}
+								userCoins={userCoins}
+								setUserCoins={setUserCoins}
+								setResponseCoins={setResponseCoins}
+								setResponseCurrency={setResponseCurrency}
+							/>
+							<YouGet
+								responseCoins={responseCoins}
+								currencies={Object.keys(currencies[0])}
+								setResponseCoins={setResponseCoins}
+								setResponseCurrency={setResponseCurrency}
+								fullCurrencies={currencies}
+								userCurrency={userCurrency}
+								responseCurrency={responseCurrency}
+							/>
+						</div>
 					</div>
 					<div className="pb-10 pt-5">
 						<input
