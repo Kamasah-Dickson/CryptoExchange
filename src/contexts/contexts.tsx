@@ -80,6 +80,17 @@ interface currencyNameContextProp {
 			}[]
 		>
 	>;
+	setResponseCurrencyData: React.Dispatch<
+		React.SetStateAction<{
+			response_currency: string;
+			response_coins: number;
+		}>
+	>;
+
+	responseCurrencyData: {
+		response_currency: string;
+		response_coins: number;
+	};
 }
 export const currencyNameContext = createContext<currencyNameContextProp>({
 	currencyFullname: "bitcoin",
@@ -121,6 +132,11 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 			},
 		},
 	],
+	setResponseCurrencyData: () => {},
+	responseCurrencyData: {
+		response_currency: "eth",
+		response_coins: 0.0123,
+	},
 });
 
 // const [currencyStat]
@@ -163,6 +179,12 @@ function CurrencyContext({ children }: childProp) {
 			},
 		},
 	]);
+
+	const [responseCurrencyData, setResponseCurrencyData] = useState({
+		response_currency: "eth",
+		response_coins: 0.0123,
+	});
+
 	return (
 		<currencyNameContext.Provider
 			value={{
@@ -170,6 +192,8 @@ function CurrencyContext({ children }: childProp) {
 				setCurrencyFullname,
 				currencies,
 				setCurrencies,
+				responseCurrencyData,
+				setResponseCurrencyData,
 			}}
 		>
 			{children}

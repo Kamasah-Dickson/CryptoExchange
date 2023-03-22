@@ -1,24 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Decimal from "decimal.js";
-import { currencyNameContext } from "../contexts/contexts";
 
 interface exchangeProp {
 	userCoins: number;
 	setUserCoins: React.Dispatch<React.SetStateAction<number>>;
 
-	setResponseCurrencyData: React.Dispatch<
-		React.SetStateAction<{
-			response_currency: string;
-			response_coins: number;
-		}>
-	>;
-
 	userCurrency: string;
-	responseCurrencyData: {
-		response_currency: string;
-		response_coins: number;
-	};
 	setUserCurrency: React.Dispatch<React.SetStateAction<string>>;
 
 	currencies: {
@@ -47,6 +35,16 @@ interface exchangeProp {
 			value: number;
 		};
 	}[];
+	responseCurrencyData: {
+		response_currency: string;
+		response_coins: number;
+	};
+	setResponseCurrencyData: React.Dispatch<
+		React.SetStateAction<{
+			response_currency: string;
+			response_coins: number;
+		}>
+	>;
 }
 
 function YouSend({
@@ -54,9 +52,9 @@ function YouSend({
 	userCoins,
 	setUserCoins,
 	setUserCurrency,
-	setResponseCurrencyData,
 	userCurrency,
 	responseCurrencyData,
+	setResponseCurrencyData,
 }: exchangeProp) {
 	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
@@ -88,16 +86,8 @@ function YouSend({
 		userCoins,
 		userCurrency,
 		currencies,
-		responseCurrencyData,
-		responseCurrencyData,
+		responseCurrencyData.response_currency,
 	]);
-	[
-		userCoins,
-		userCurrency,
-		currencies,
-		responseCurrencyData,
-		responseCurrencyData,
-	];
 
 	function handleUserAmountChange(userCoins: number) {
 		setResponseCurrencyData((prev) => ({

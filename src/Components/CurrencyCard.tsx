@@ -7,12 +7,14 @@ import EnterWalletAddress from "./EnterWalletAddress";
 import AdditionalInfo from "./AdditionalInfo";
 
 function CurrencyCard() {
-	const { currencyFullname, currencies } = useContext(currencyNameContext);
+	const {
+		currencyFullname,
+		currencies,
+		responseCurrencyData,
+		setResponseCurrencyData,
+	} = useContext(currencyNameContext);
+
 	const [userCurrency, setUserCurrency] = useState("btc");
-	const [responseCurrencyData, setResponseCurrencyData] = useState({
-		response_currency: "eth",
-		response_coins: 0.0123,
-	});
 	const [userCoins, setUserCoins] = useState(0.1);
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
 
@@ -37,18 +39,18 @@ function CurrencyCard() {
 						<div className="flex flex-col items-center justify-center gap-7">
 							<YouSend
 								userCurrency={userCurrency}
-								responseCurrencyData={responseCurrencyData}
 								currencies={currencies}
 								setUserCurrency={setUserCurrency}
 								userCoins={userCoins}
 								setUserCoins={setUserCoins}
+								responseCurrencyData={responseCurrencyData}
 								setResponseCurrencyData={setResponseCurrencyData}
 							/>
 							<YouGet
-								responseCurrencyData={responseCurrencyData}
-								setResponseCurrencyData={setResponseCurrencyData}
 								currencies={currencies}
 								userCurrency={userCurrency}
+								responseCurrencyData={responseCurrencyData}
+								setResponseCurrencyData={setResponseCurrencyData}
 							/>
 						</div>
 					</div>
