@@ -12,7 +12,11 @@
 			url("./assets/magicpattern-pattern-1679190320308.jpeg");
 		background-size: cover;
 		background-position: center top;
-		height: 100vh;
+		min-height: 100vh;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+		scroll-behavior: smooth;
 	}
 
 	.my-max {
@@ -23,36 +27,22 @@
 	.skewed-border {
 		transform-origin: top right;
 	}
-	.active {
-		background-color: rgba(186, 182, 223, 0.747);
-
-		color: black;
-		transform: skew(-15deg);
-		border-bottom-right-radius: 20px;
-		transition: 0.3s ease;
-		&:hover {
-			background-color: rgba(171, 163, 241, 0.678);
-			box-shadow: inset -1px 0px 8px -1px rgba(47, 16, 221, 0.952);
-		}
-	}
-	.active2 {
-		transform: skew(15deg);
-		background-color: rgba(186, 182, 223, 0.747);
-		border-bottom-left-radius: 20px;
-		transition: 0.3s ease;
-		color: black;
-		&:hover {
-			background-color: rgba(171, 163, 241, 0.678);
-			box-shadow: inset -1px 0px 8px -1px rgba(47, 16, 221, 0.952);
-		}
-	}
 
 	.my-max2 {
 		width: min(100% - 20px, 680px);
 		margin-inline: auto;
 	}
+	.my-max3 {
+		width: min(100% - 20px, 780px);
+		margin-inline: auto;
+	}
 
-	.my-select {
-		background-color: red !important;
+	.my-scrollbar {
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+	.my-shadow {
+		box-shadow: inset 0px 0px 70px -10px rgb(47, 16, 221);
 	}
 }
