@@ -2,11 +2,14 @@ import React, { useState, useRef, useCallback } from "react";
 import me from "../assets/EgLF6Jmi_4x.jpg";
 
 interface WalletaddressProp {
-	currencyFullname?: string | null;
+	currencyAddresses: {
+		user_Wallet_Address: string;
+		refund_Wallet_Address: string;
+	};
 }
 
 export default function EnterWalletAddress({
-	currencyFullname,
+	currencyAddresses,
 }: WalletaddressProp) {
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const [inputValue, setInputValue] = useState({
@@ -22,7 +25,7 @@ export default function EnterWalletAddress({
 	}, []);
 
 	function handleBlur() {
-		if (!inputValue) {
+		if (!inputValue.user_wallet_address) {
 			setFlexDirection(
 				"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
 			);
@@ -67,7 +70,9 @@ export default function EnterWalletAddress({
 				)}
 				className={`${flexDirection} mt-4 flex h-[55px] cursor-pointer rounded-lg  px-5`}
 			>
-				<div className="text-[white]">Recipient {currencyFullname} address</div>
+				<div className="text-[white]">
+					Recipient {currencyAddresses.user_Wallet_Address} address
+				</div>
 				<input
 					name="user_wallet_address"
 					value={inputValue.user_wallet_address}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Decimal from "decimal.js";
+import { currencyNameContext } from "../contexts/contexts";
 
 interface exchangeProp {
 	userCoins: number;
@@ -56,6 +57,8 @@ function YouSend({
 	responseCurrencyData,
 	setResponseCurrencyData,
 }: exchangeProp) {
+	const { setcurrencyAddresses } = useContext(currencyNameContext);
+
 	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
 		if (parseFloat(value) >= 0) {
@@ -106,6 +109,11 @@ function YouSend({
 		const value = e.target.value;
 		setUserCurrency(value);
 		handleUserAmountChange(userCoins);
+		setcurrencyAddresses((prev) => ({
+			...prev,
+			refund_Wallet_Address: (currencies[0] as any)[e.target.value].name,
+		}));
+
 		// if (
 		// 	(fullCurrencies[0] as { [key: string]: number })[userCurrency] ===
 		// 	(fullCurrencies[0] as { [key: string]: number })[responseCurrencyData]

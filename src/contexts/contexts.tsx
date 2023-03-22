@@ -5,8 +5,13 @@ interface childProp {
 }
 
 interface currencyNameContextProp {
-	currencyFullname: null | string;
-	setCurrencyFullname: React.Dispatch<React.SetStateAction<string>>;
+	setcurrencyAddresses: React.Dispatch<
+		React.SetStateAction<{
+			user_Wallet_Address: string;
+			refund_Wallet_Address: string;
+		}>
+	>;
+
 	currencies: {
 		btc: {
 			value: number;
@@ -91,10 +96,19 @@ interface currencyNameContextProp {
 		response_currency: string;
 		response_coins: number;
 	};
+
+	currencyAddresses: {
+		user_Wallet_Address: string;
+		refund_Wallet_Address: string;
+	};
 }
+
 export const currencyNameContext = createContext<currencyNameContextProp>({
-	currencyFullname: "bitcoin",
-	setCurrencyFullname: () => {},
+	currencyAddresses: {
+		user_Wallet_Address: "bitcoin",
+		refund_Wallet_Address: "bitcoin",
+	},
+	setcurrencyAddresses: () => {},
 	setCurrencies: () => {},
 	currencies: [
 		{
@@ -142,7 +156,11 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 // const [currencyStat]
 
 function CurrencyContext({ children }: childProp) {
-	const [currencyFullname, setCurrencyFullname] = useState<string>("bitcoin");
+	const [currencyAddresses, setcurrencyAddresses] = useState({
+		user_Wallet_Address: "bitcoin",
+		refund_Wallet_Address: "bitcoin",
+	});
+
 	const [currencies, setCurrencies] = useState([
 		{
 			btc: {
@@ -188,8 +206,8 @@ function CurrencyContext({ children }: childProp) {
 	return (
 		<currencyNameContext.Provider
 			value={{
-				currencyFullname,
-				setCurrencyFullname,
+				currencyAddresses,
+				setcurrencyAddresses,
 				currencies,
 				setCurrencies,
 				responseCurrencyData,

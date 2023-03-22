@@ -53,7 +53,7 @@ function AdditionalInfo() {
 	const [reducerState, dispatch] = useReducer(reducer, initialState);
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const handleFocus2 = useRef<HTMLInputElement>(null);
-	const { currencyFullname } = useContext(currencyNameContext);
+	const { currencyAddresses } = useContext(currencyNameContext);
 	const handleClick = useCallback(() => {
 		if (handleFocus.current) {
 			handleFocus.current.focus();
@@ -169,7 +169,7 @@ function AdditionalInfo() {
 						className={`${reducerState.flexDirection} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
 					>
 						<div className="text-[white]">
-							Recipient {currencyFullname} address
+							Recipient {currencyAddresses.refund_Wallet_Address} address
 						</div>
 						<input
 							name="wallet_address"
@@ -200,7 +200,7 @@ function AdditionalInfo() {
 						)}
 						className={`${reducerState.flexDirection2} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
 					>
-						<div className="text-[white]">Enter your address</div>
+						<div className="text-[white]">Enter your Email address</div>
 						<input
 							name="email"
 							ref={handleFocus2}

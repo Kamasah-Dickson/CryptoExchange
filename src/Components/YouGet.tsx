@@ -56,7 +56,7 @@ function YouGet({
 		}));
 	}
 
-	const { setCurrencyFullname } = useContext(currencyNameContext);
+	const { setcurrencyAddresses } = useContext(currencyNameContext);
 
 	//fix precition errors leading to zeroes using decimal.js
 	const responseCurrencyDataDecimal = new Decimal(
@@ -89,7 +89,10 @@ function YouGet({
 			response_currency: e.target.value,
 		}));
 
-		setCurrencyFullname((currencies[0] as any)[e.target.value].name);
+		setcurrencyAddresses((prev) => ({
+			...prev,
+			user_Wallet_Address: (currencies[0] as any)[e.target.value].name,
+		}));
 	}
 
 	return (
@@ -112,7 +115,7 @@ function YouGet({
 			<select
 				onChange={(e) => handleCurrency(e)}
 				name="responseCurrencyName"
-				id="responseCurrencyData"
+				id="user_Wallet_Address"
 				className="h-[55px] flex-1 cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3]"
 			>
 				{Object.keys(currencies[0]).map((currency, index) => {

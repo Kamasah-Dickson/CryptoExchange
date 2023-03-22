@@ -8,7 +8,7 @@ import AdditionalInfo from "./AdditionalInfo";
 
 function CurrencyCard() {
 	const {
-		currencyFullname,
+		currencyAddresses,
 		currencies,
 		responseCurrencyData,
 		setResponseCurrencyData,
@@ -71,7 +71,7 @@ function CurrencyCard() {
 							showAdditionalDetails ? "h-auto" : "h-0 overflow-hidden"
 						}`}
 					>
-						<EnterWalletAddress currencyFullname={currencyFullname} />
+						<EnterWalletAddress currencyAddresses={currencyAddresses} />
 						<AdditionalInfo />
 					</div>
 				</div>
