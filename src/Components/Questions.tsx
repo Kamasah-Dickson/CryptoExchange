@@ -20,18 +20,22 @@ function Questions({ title, answer, arrayOfAnswers, height }: questionsProp) {
 		<>
 			<div
 				className={`my-trans mt-3 ${
-					show ? "h-[35px]" : `h-[${height}]`
+					show ? "h-[28px] md:h-[35px]" : `h-[${height}]`
 				} overflow-hidden`}
 			>
 				<h4
 					onClick={() => setShow((prev) => !prev)}
 					className={`${
 						!show && "text-[#cb7dff]"
-					} flex cursor-pointer items-center justify-between text-lg`}
+					} flex cursor-pointer items-center justify-between gap-3 text-base md:text-lg`}
 				>
 					{title}
 
-					{show ? <MdOutlineKeyboardArrowDown /> : <MdOutlineKeyboardArrowUp />}
+					{show ? (
+						<MdOutlineKeyboardArrowDown size={20} className="self-baseline" />
+					) : (
+						<MdOutlineKeyboardArrowUp size={20} className="self-baseline" />
+					)}
 				</h4>
 
 				<ul className="flex list-disc flex-col gap-3 pt-2 pl-10">

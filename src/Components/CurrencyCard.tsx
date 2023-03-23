@@ -33,7 +33,7 @@ function CurrencyCard() {
 				<h2 className="mt-4 text-center text-2xl font-semibold text-white md:text-3xl">
 					Crypto Exchange
 				</h2>
-				<div className="px-7 md:px-10">
+				<div className="px-8 md:px-10">
 					<div className="mx-auto mt-10">
 						<div className="flex flex-col items-center justify-center gap-4">
 							<YouSend

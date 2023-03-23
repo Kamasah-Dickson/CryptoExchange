@@ -144,11 +144,11 @@ function AdditionalInfo() {
 			</h3>
 
 			<div
-				className={`mt-5 transition-all ${
-					showInfo ? "h-[180px]" : "h-[0px]"
+				className={`mt-10 transition-all ${
+					showInfo ? "h-[350px] md:h-[180px]" : "h-[0px]"
 				} flex flex-col gap-6 overflow-hidden`}
 			>
-				<div className="flex items-center justify-center gap-5">
+				<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
 					<div className="flex-1">
 						<h3 className="font-medium text-white">
 							Enter your refund Address
@@ -176,12 +176,12 @@ function AdditionalInfo() {
 							ref={handleFocus}
 							onChange={(e) => handleInputChange(e)}
 							onBlur={handleBlur}
-							className=" h-full w-full flex-1 bg-transparent outline-none"
+							className=" h-[55px] w-full flex-1 bg-transparent outline-none"
 							type="text"
 						/>
 					</div>
 				</div>
-				<div className="flex items-center justify-center gap-5">
+				<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
 					<div className="flex-1">
 						<h3 className="font-medium text-white">Add your Email</h3>
 						<p className="text-sm text-[grey]">
@@ -206,7 +206,7 @@ function AdditionalInfo() {
 							ref={handleFocus2}
 							onChange={(e) => handleInputChange2(e)}
 							onBlur={handleBlur2}
-							className=" h-full w-full flex-1 bg-transparent outline-none"
+							className=" h-[55px] w-full flex-1 bg-transparent outline-none"
 							type="text"
 						/>
 					</div>
