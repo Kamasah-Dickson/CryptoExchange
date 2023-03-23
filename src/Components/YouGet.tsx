@@ -96,36 +96,42 @@ function YouGet({
 	}
 
 	return (
-		<div className="flex w-full items-center justify-between gap-[3px]">
-			<div className=" relative flex h-[50px] flex-[2] items-center justify-between">
-				<div className="absolute pl-[30px] font-light text-[white]">
-					You Get
-				</div>
+		<div className="flex w-full flex-col gap-2">
+			<label htmlFor="youGet" className="text-left sm:hidden">
+				You send
+			</label>
+			<div className="flex items-center justify-between gap-[3px]">
+				<div className=" relative flex h-[50px] flex-[2] items-center justify-between">
+					<div className="absolute hidden pl-[30px] font-light text-[white] sm:flex">
+						You Get
+					</div>
 
-				<input
-					disabled
-					name="response_coins"
-					value={responseCurrencyData.response_coins}
-					onChange={(e) => updateResponseOptions(e)}
-					inputMode="decimal"
-					type="number"
-					className="h-full w-full rounded-l-md bg-[#8aa0c031] px-2  pl-[110px] text-right text-xl font-semibold outline-1 outline-[#604adbaf] focus:bg-[rgba(70,46,124,0.13)]"
-				/>
+					<input
+						disabled
+						id="youGet"
+						name="response_coins"
+						value={responseCurrencyData.response_coins}
+						onChange={(e) => updateResponseOptions(e)}
+						inputMode="decimal"
+						type="number"
+						className="h-full w-full rounded-l-md bg-[#8aa0c031] px-2  text-right text-xl font-semibold outline-1 outline-[#604adbaf] focus:bg-[rgba(70,46,124,0.13)]"
+					/>
+				</div>
+				<select
+					onChange={(e) => handleCurrency(e)}
+					name="responseCurrencyName"
+					id="user_Wallet_Address"
+					className="flex-2 h-[50px] cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3] md:flex-1"
+				>
+					{Object.keys(currencies[0]).map((currency, index) => {
+						return (
+							<option key={index} value={currency}>
+								{currency}
+							</option>
+						);
+					})}
+				</select>
 			</div>
-			<select
-				onChange={(e) => handleCurrency(e)}
-				name="responseCurrencyName"
-				id="user_Wallet_Address"
-				className="h-[50px] flex-1 cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3]"
-			>
-				{Object.keys(currencies[0]).map((currency, index) => {
-					return (
-						<option key={index} value={currency}>
-							{currency}
-						</option>
-					);
-				})}
-			</select>
 		</div>
 	);
 }

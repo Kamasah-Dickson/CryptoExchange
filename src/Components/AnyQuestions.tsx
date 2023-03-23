@@ -48,7 +48,7 @@ function AnyQuestions() {
 	];
 
 	return (
-		<div className="mt-10 text-2xl">
+		<div className="mt-10 pb-3 text-2xl">
 			<h3 className="mb-7 text-3xl">Have any questions?</h3>
 			<Questions
 				height="180px"

@@ -124,34 +124,40 @@ function YouSend({
 	}
 
 	return (
-		<div className="flex w-full items-center justify-between gap-[3px]">
-			<div className=" relative flex h-[50px] flex-[2] items-center justify-between">
-				<div className="absolute pl-[30px] font-light text-[white]">
-					You send
+		<div className="flex w-full flex-col gap-2">
+			<label htmlFor="youSend" className="text-left sm:hidden">
+				You send
+			</label>
+			<div className="flex w-full items-center justify-between gap-[3px]">
+				<div className=" relative flex h-[55px] flex-[2] items-center justify-between md:h-[50px]">
+					<div className="absolute hidden pl-[30px] font-light text-[white] sm:flex">
+						You send
+					</div>
+					<input
+						id="youSend"
+						autoComplete="off"
+						value={userCoins}
+						name="userCoin"
+						onChange={(e) => updateUserOptions(e)}
+						type="number"
+						className=" h-full w-full rounded-l-md bg-[#8aa0c031] px-2
+				text-right text-xl font-semibold text-white  focus:bg-[rgba(23,13,46,0.13)]"
+					/>
 				</div>
-				<input
-					autoComplete="off"
-					value={userCoins}
-					name="userCoin"
-					onChange={(e) => updateUserOptions(e)}
-					type="number"
-					className=" h-full w-full rounded-l-md bg-[#8aa0c031] px-2
-					pl-[110px] text-right text-xl font-semibold text-white  focus:bg-[rgba(70,46,124,0.13)]"
-				/>
+				<select
+					onChange={(e) => handleCurrency(e)}
+					name="userGet"
+					className="flex-2 h-[55px] cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold  uppercase  text-white outline-none transition-all hover:bg-[#370b97f3] md:h-[50px] md:flex-1"
+				>
+					{Object.keys(currencies[0]).map((currency, index) => {
+						return (
+							<option key={index} value={currency}>
+								{currency}
+							</option>
+						);
+					})}
+				</select>
 			</div>
-			<select
-				onChange={(e) => handleCurrency(e)}
-				name="userGet"
-				className="h-[50px] flex-1 cursor-pointer rounded-r-md bg-[#210857]  p-1  font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3]"
-			>
-				{Object.keys(currencies[0]).map((currency, index) => {
-					return (
-						<option className="" key={index} value={currency}>
-							{currency}
-						</option>
-					);
-				})}
-			</select>
 		</div>
 	);
 }

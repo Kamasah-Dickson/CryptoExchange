@@ -20,7 +20,7 @@ function Questions({ title, answer, arrayOfAnswers, height }: questionsProp) {
 		<>
 			<div
 				className={`my-trans mt-3 ${
-					show ? "h-[30px]" : `h-[${height}]`
+					show ? "h-[35px]" : `h-[${height}]`
 				} overflow-hidden`}
 			>
 				<h4
@@ -35,9 +35,9 @@ function Questions({ title, answer, arrayOfAnswers, height }: questionsProp) {
 				</h4>
 
 				<ul className="flex list-disc flex-col gap-3 pt-2 pl-10">
-					{arrayOfAnswers?.map((data) => {
+					{arrayOfAnswers?.map((data, index) => {
 						return (
-							<li className="text-sm">
+							<li key={index} className="text-sm">
 								<span className="text-[#ffffff]">{data.title}</span>
 								{data.text}
 							</li>
