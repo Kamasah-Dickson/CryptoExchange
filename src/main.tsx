@@ -8,12 +8,6 @@ import Signup from "./Pages/Signup";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
-		<Router>
-			<Routes>
-				<Route path="/" element={<App />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/signup" element={<Signup />} />
-			</Routes>
-		</Router>
+		<App />
 	</React.StrictMode>
 );
