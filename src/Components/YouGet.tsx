@@ -29,28 +29,13 @@ interface exchangeProp {
 			value: number;
 		};
 	}[];
-	userCurrency: string;
-	responseCurrencyData: {
-		response_currency: string;
-		response_coins: number;
-	};
-	setResponseCurrencyData: React.Dispatch<
-		React.SetStateAction<{
-			response_currency: string;
-			response_coins: number;
-		}>
-	>;
 }
 
-function YouGet({
-	currencies,
-	userCurrency,
-	responseCurrencyData,
-	setResponseCurrencyData,
-}: exchangeProp) {
+function YouGet({ currencies }: exchangeProp) {
+	const { setcurrencyData, currencyData } = useContext(currencyNameContext);
 	function updateResponseOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
-		setResponseCurrencyData((prev) => ({
+		setcurrencyData((prev) => ({
 			...prev,
 			[e.target.value]: parseInt(value),
 		}));
@@ -59,32 +44,33 @@ function YouGet({
 	const { setcurrencyAddresses } = useContext(currencyNameContext);
 
 	//fix precition errors leading to zeroes using decimal.js
-	const responseCurrencyDataDecimal = new Decimal(
-		responseCurrencyData.response_coins
+	const currencyDataDecimal = new Decimal(
+		currencyData.response_coins
 	).toNumber();
 
-	function handleresponseCurrencyData() {
-		const userExchangeRate2 = (currencies[0] as any)[userCurrency].value;
+	function handlecurrencyData() {
+		const userExchangeRate2 = (currencies[0] as any)[currencyData.userCurrency]
+			.value;
 
 		const responseExchangeRate2 = (currencies[0] as any)[
-			responseCurrencyData.response_currency
+			currencyData.response_currency
 		].value;
 		const result = parseFloat(
 			(
-				(responseCurrencyDataDecimal * userExchangeRate2) /
+				(currencyDataDecimal * userExchangeRate2) /
 				responseExchangeRate2
 			).toFixed(7)
 		);
-		setResponseCurrencyData((prev) => ({
+		setcurrencyData((prev) => ({
 			...prev,
 			response_coins: Number(result),
 		}));
 	}
 
-	//handle responseCurrencyData changes
+	//handle currencyData changes
 	function handleCurrency(e: React.ChangeEvent<HTMLSelectElement>) {
-		handleresponseCurrencyData();
-		setResponseCurrencyData((prev) => ({
+		handlecurrencyData();
+		setcurrencyData((prev) => ({
 			...prev,
 			response_currency: e.target.value,
 		}));
@@ -110,7 +96,7 @@ function YouGet({
 						disabled
 						id="youGet"
 						name="response_coins"
-						value={responseCurrencyData.response_coins}
+						value={currencyData.response_coins}
 						onChange={(e) => updateResponseOptions(e)}
 						inputMode="decimal"
 						type="number"
@@ -118,6 +104,7 @@ function YouGet({
 					/>
 				</div>
 				<select
+					value={currencyData.response_currency}
 					onChange={(e) => handleCurrency(e)}
 					name="responseCurrencyName"
 					id="user_Wallet_Address"

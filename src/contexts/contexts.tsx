@@ -85,16 +85,20 @@ interface currencyNameContextProp {
 			}[]
 		>
 	>;
-	setResponseCurrencyData: React.Dispatch<
+	setcurrencyData: React.Dispatch<
 		React.SetStateAction<{
 			response_currency: string;
+			userCurrency: string;
 			response_coins: number;
+			userCoins: number;
 		}>
 	>;
 
-	responseCurrencyData: {
+	currencyData: {
 		response_currency: string;
+		userCurrency: string;
 		response_coins: number;
+		userCoins: number;
 	};
 
 	currencyAddresses: {
@@ -146,10 +150,12 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 			},
 		},
 	],
-	setResponseCurrencyData: () => {},
-	responseCurrencyData: {
+	setcurrencyData: () => {},
+	currencyData: {
 		response_currency: "eth",
+		userCurrency: "btc",
 		response_coins: 0.0123,
+		userCoins: 0.1,
 	},
 });
 
@@ -198,9 +204,11 @@ function CurrencyContext({ children }: childProp) {
 		},
 	]);
 
-	const [responseCurrencyData, setResponseCurrencyData] = useState({
+	const [currencyData, setcurrencyData] = useState({
 		response_currency: "eth",
+		userCurrency: "btc",
 		response_coins: 0.0123,
+		userCoins: 0.1,
 	});
 
 	return (
@@ -210,8 +218,8 @@ function CurrencyContext({ children }: childProp) {
 				setcurrencyAddresses,
 				currencies,
 				setCurrencies,
-				responseCurrencyData,
-				setResponseCurrencyData,
+				currencyData,
+				setcurrencyData,
 			}}
 		>
 			{children}

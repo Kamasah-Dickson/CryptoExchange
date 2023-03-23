@@ -4,11 +4,7 @@ import Decimal from "decimal.js";
 import { currencyNameContext } from "../contexts/contexts";
 
 interface exchangeProp {
-	userCoins: number;
-	setUserCoins: React.Dispatch<React.SetStateAction<number>>;
-
 	userCurrency: string;
-	setUserCurrency: React.Dispatch<React.SetStateAction<string>>;
 
 	currencies: {
 		btc: {
@@ -36,48 +32,34 @@ interface exchangeProp {
 			value: number;
 		};
 	}[];
-	responseCurrencyData: {
-		response_currency: string;
-		response_coins: number;
-	};
-	setResponseCurrencyData: React.Dispatch<
-		React.SetStateAction<{
-			response_currency: string;
-			response_coins: number;
-		}>
-	>;
 }
 
-function YouSend({
-	currencies,
-	userCoins,
-	setUserCoins,
-	setUserCurrency,
-	userCurrency,
-	responseCurrencyData,
-	setResponseCurrencyData,
-}: exchangeProp) {
-	const { setcurrencyAddresses } = useContext(currencyNameContext);
+function YouSend({ currencies, userCurrency }: exchangeProp) {
+	const { setcurrencyAddresses, setcurrencyData, currencyData } =
+		useContext(currencyNameContext);
 
 	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
 		if (parseFloat(value) >= 0) {
-			setUserCoins(parseFloat(value));
+			setcurrencyData((prev) => ({
+				...prev,
+				userCoins: parseFloat(value),
+			}));
 		}
 	}
 
 	//fix precition errors leading to zeroes using decimal.js
-	const userCoinsDecimal = new Decimal(userCoins).toNumber();
+	const userCoinsDecimal = new Decimal(currencyData.userCoins).toNumber();
 	const userExchangeRate = new Decimal(
 		(currencies[0] as any)[userCurrency].value
 	).toNumber();
 
 	const responseExchangeRate = new Decimal(
-		(currencies[0] as any)[responseCurrencyData.response_currency].value
+		(currencies[0] as any)[currencyData.response_currency].value
 	).toNumber();
 
 	useEffect(() => {
-		setResponseCurrencyData((prev) => ({
+		setcurrencyData((prev) => ({
 			...prev,
 			response_coins: parseFloat(
 				((userCoinsDecimal / userExchangeRate) * responseExchangeRate).toFixed(
@@ -86,14 +68,14 @@ function YouSend({
 			),
 		}));
 	}, [
-		userCoins,
+		currencyData.userCoins,
 		userCurrency,
 		currencies,
-		responseCurrencyData.response_currency,
+		currencyData.response_currency,
 	]);
 
 	function handleUserAmountChange(userCoins: number) {
-		setResponseCurrencyData((prev) => ({
+		setcurrencyData((prev) => ({
 			...prev,
 			response_coins: parseFloat(
 				((userCoinsDecimal * responseExchangeRate) / userExchangeRate).toFixed(
@@ -101,14 +83,14 @@ function YouSend({
 				)
 			),
 		}));
-		setUserCoins(userCoins);
+		setcurrencyData((prev) => ({ ...prev, userCoins: userCoins }));
 	}
 
 	//handle userCurrency changes
 	function handleCurrency(e: React.ChangeEvent<HTMLSelectElement>) {
 		const value = e.target.value;
-		setUserCurrency(value);
-		handleUserAmountChange(userCoins);
+		setcurrencyData((prev) => ({ ...prev, userCurrency: value }));
+		handleUserAmountChange(currencyData.userCoins);
 		setcurrencyAddresses((prev) => ({
 			...prev,
 			refund_Wallet_Address: (currencies[0] as any)[e.target.value].name,
@@ -116,10 +98,10 @@ function YouSend({
 
 		// if (
 		// 	(fullCurrencies[0] as { [key: string]: number })[userCurrency] ===
-		// 	(fullCurrencies[0] as { [key: string]: number })[responseCurrencyData]
+		// 	(fullCurrencies[0] as { [key: string]: number })[currencyData]
 		// ) {
-		// 	setUserCurrency(responseCurrencyData);
-		// 	setResponseCurrencyData(userCurrency);
+		// 	setUserCurrency(currencyData);
+		// 	setcurrencyData(userCurrency);
 		// }
 	}
 
@@ -136,7 +118,7 @@ function YouSend({
 					<input
 						id="youSend"
 						autoComplete="off"
-						value={userCoins}
+						value={currencyData.userCoins}
 						name="userCoin"
 						onChange={(e) => updateUserOptions(e)}
 						type="number"

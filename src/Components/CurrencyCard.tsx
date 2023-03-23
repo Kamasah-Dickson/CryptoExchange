@@ -8,15 +8,9 @@ import AdditionalInfo from "./AdditionalInfo";
 import AnyQuestions from "./AnyQuestions";
 
 function CurrencyCard() {
-	const {
-		currencyAddresses,
-		currencies,
-		responseCurrencyData,
-		setResponseCurrencyData,
-	} = useContext(currencyNameContext);
+	const { currencyAddresses, currencies, currencyData } =
+		useContext(currencyNameContext);
 
-	const [userCurrency, setUserCurrency] = useState("btc");
-	const [userCoins, setUserCoins] = useState(0.1);
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -37,25 +31,15 @@ function CurrencyCard() {
 					<div className="mx-auto mt-10">
 						<div className="flex flex-col items-center justify-center gap-4">
 							<YouSend
-								userCurrency={userCurrency}
+								userCurrency={currencyData.userCurrency}
 								currencies={currencies}
-								setUserCurrency={setUserCurrency}
-								userCoins={userCoins}
-								setUserCoins={setUserCoins}
-								responseCurrencyData={responseCurrencyData}
-								setResponseCurrencyData={setResponseCurrencyData}
 							/>
-							<YouGet
-								currencies={currencies}
-								userCurrency={userCurrency}
-								responseCurrencyData={responseCurrencyData}
-								setResponseCurrencyData={setResponseCurrencyData}
-							/>
+							<YouGet currencies={currencies} />
 						</div>
 					</div>
 					<div className={`${showAdditionalDetails ? "hidden" : "pb-10 pt-5"}`}>
 						<input
-							disabled={userCoins > 0 ? false : true}
+							disabled={currencyData.userCoins > 0 ? false : true}
 							type="submit"
 							value="Exchange"
 							className={`${
