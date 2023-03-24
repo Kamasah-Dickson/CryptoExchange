@@ -17,11 +17,15 @@ interface currencyNameContextProp {
 			value: number;
 			name: string;
 		};
-		usd: {
+		usdc: {
 			value: number;
 			name: string;
 		};
 		eth: {
+			value: number;
+			name: string;
+		};
+		xrp: {
 			value: number;
 			name: string;
 		};
@@ -33,15 +37,12 @@ interface currencyNameContextProp {
 			value: number;
 			name: string;
 		};
-		poof: {
-			value: number;
-			name: string;
-		};
+
 		loom: {
 			value: number;
 			name: string;
 		};
-		volt: {
+		vot: {
 			value: number;
 			name: string;
 		};
@@ -54,11 +55,15 @@ interface currencyNameContextProp {
 					value: number;
 					name: string;
 				};
-				usd: {
+				usdc: {
 					value: number;
 					name: string;
 				};
 				eth: {
+					value: number;
+					name: string;
+				};
+				xrp: {
 					value: number;
 					name: string;
 				};
@@ -70,15 +75,12 @@ interface currencyNameContextProp {
 					value: number;
 					name: string;
 				};
-				poof: {
-					value: number;
-					name: string;
-				};
+
 				loom: {
 					value: number;
 					name: string;
 				};
-				volt: {
+				vot: {
 					value: number;
 					name: string;
 				};
@@ -120,13 +122,17 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 				value: 0.123677612,
 				name: "bitcoin",
 			},
-			usd: {
+			usdc: {
 				value: 1.868767645,
-				name: "usd",
+				name: "usdcc",
 			},
 			eth: {
 				value: 0.756766234,
 				name: "etherium",
+			},
+			xrp: {
+				value: 0.726766234,
+				name: "ripple",
 			},
 			ltc: {
 				value: 0.346766736,
@@ -136,17 +142,14 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 				value: 2.344544523,
 				name: "xmr",
 			},
-			poof: {
-				value: 7.53453453,
-				name: "poof",
-			},
+
 			loom: {
 				value: 0.44533434,
 				name: "loom",
 			},
-			volt: {
+			vot: {
 				value: 4.33433554,
-				name: "volt",
+				name: "vot",
 			},
 		},
 	],
@@ -173,33 +176,34 @@ function CurrencyContext({ children }: childProp) {
 				value: 0.123677612,
 				name: "bitcoin",
 			},
-			usd: {
+			usdc: {
 				value: 1.868767645,
-				name: "usd",
+				name: "usdc",
 			},
 			eth: {
 				value: 0.756766234,
 				name: "etherium",
 			},
+			xrp: {
+				value: 0.726766234,
+				name: "ripple",
+			},
 			ltc: {
-				value: 0.346766736,
+				value: 0.343487833,
 				name: "litecoin",
 			},
 			xmr: {
-				value: 2.344544523,
+				value: 2.34454452,
 				name: "xmr",
 			},
-			poof: {
-				value: 7.53453453,
-				name: "poof",
-			},
+
 			loom: {
 				value: 0.44533434,
 				name: "loom",
 			},
-			volt: {
+			vot: {
 				value: 4.33433554,
-				name: "volt",
+				name: "vot",
 			},
 		},
 	]);
