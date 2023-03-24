@@ -1,21 +1,22 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import YouSend from "./YouSend";
 import YouGet from "./YouGet";
-import axios from "axios";
 import { currencyNameContext } from "../contexts/contexts";
 import EnterWalletAddress from "./EnterWalletAddress";
 import AdditionalInfo from "./AdditionalInfo";
 import AnyQuestions from "./AnyQuestions";
+import { useNavigate } from "react-router";
 
 function CurrencyCard() {
-	const { currencyAddresses, currencies, currencyData } =
-		useContext(currencyNameContext);
+	const { currencies, currencyData } = useContext(currencyNameContext);
 
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
+	const navigate = useNavigate();
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		setShowAdditionalDetails(true);
+		showAdditionalDetails && navigate("/exchange");
 	}
 
 	return (
