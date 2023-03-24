@@ -7,7 +7,7 @@ interface exchangeProp {
 		btc: {
 			value: number;
 		};
-		usd: {
+		usdc: {
 			value: number;
 		};
 		eth: {
@@ -19,13 +19,11 @@ interface exchangeProp {
 		xmr: {
 			value: number;
 		};
-		poof: {
-			value: number;
-		};
+
 		loom: {
 			value: number;
 		};
-		volt: {
+		vot: {
 			value: number;
 		};
 	}[];
