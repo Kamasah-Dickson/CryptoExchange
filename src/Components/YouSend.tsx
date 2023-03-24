@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Decimal from "decimal.js";
 import { currencyNameContext } from "../contexts/contexts";
-
 interface exchangeProp {
 	userCurrency: string;
 
@@ -10,7 +9,7 @@ interface exchangeProp {
 		btc: {
 			value: number;
 		};
-		usd: {
+		usdcc: {
 			value: number;
 		};
 		eth: {
@@ -22,13 +21,11 @@ interface exchangeProp {
 		xmr: {
 			value: number;
 		};
-		poof: {
-			value: number;
-		};
+
 		loom: {
 			value: number;
 		};
-		volt: {
+		vot: {
 			value: number;
 		};
 	}[];
@@ -95,14 +92,6 @@ function YouSend({ currencies, userCurrency }: exchangeProp) {
 			...prev,
 			refund_Wallet_Address: (currencies[0] as any)[e.target.value].name,
 		}));
-
-		// if (
-		// 	(fullCurrencies[0] as { [key: string]: number })[userCurrency] ===
-		// 	(fullCurrencies[0] as { [key: string]: number })[currencyData]
-		// ) {
-		// 	setUserCurrency(currencyData);
-		// 	setcurrencyData(userCurrency);
-		// }
 	}
 
 	return (
@@ -127,6 +116,7 @@ function YouSend({ currencies, userCurrency }: exchangeProp) {
 					/>
 				</div>
 				<select
+					value={currencyData.userCurrency}
 					onChange={(e) => handleCurrency(e)}
 					name="userGet"
 					className="flex-2 h-[55px] cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold  uppercase  text-white outline-none transition-all hover:bg-[#370b97f3] md:h-[50px] md:flex-1"
