@@ -5,15 +5,16 @@ import CurrencyContext from "./contexts/contexts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
+import Exchange from "./Pages/Exchange";
 
 function App() {
 	return (
-		<Router>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<CurrencyContext>
+		<CurrencyContext>
+			<Router>
+				<Routes>
+					<Route
+						path="/"
+						element={
 							<>
 								<Header />
 								<div className="mt-10 flex flex-col items-center justify-center leading-10 text-white">
@@ -26,15 +27,16 @@ function App() {
 										<li>reliable</li>
 									</ul>
 								</div>
+								<CurrencyCard />
 							</>
-							<CurrencyCard />
-						</CurrencyContext>
-					}
-				/>
-				<Route path="/login" element={<Login />} />
-				<Route path="/signup" element={<Signup />} />
-			</Routes>
-		</Router>
+						}
+					/>
+					<Route path="/exchange" element={<Exchange />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/signup" element={<Signup />} />
+				</Routes>
+			</Router>
+		</CurrencyContext>
 	);
 }
 
