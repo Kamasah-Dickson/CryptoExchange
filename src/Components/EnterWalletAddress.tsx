@@ -1,6 +1,14 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, {
+	useState,
+	useRef,
+	useCallback,
+	useContext,
+	useEffect,
+} from "react";
 import me from "../assets/EgLF6Jmi_4x.jpg";
+import { validate } from "multicoin-address-validator/dist/wallet-address-validator";
 
+import { currencyNameContext } from "../contexts/contexts";
 interface WalletaddressProp {
 	currencyAddresses: {
 		user_Wallet_Address: string;
@@ -11,18 +19,45 @@ interface WalletaddressProp {
 export default function EnterWalletAddress({
 	currencyAddresses,
 }: WalletaddressProp) {
+	const { currencyData } = useContext(currencyNameContext);
+	const [invalidAddress, setInvalidAddress] = useState(true);
+
 	const handleFocus = useRef<HTMLInputElement>(null);
+
 	const [inputValue, setInputValue] = useState({
 		user_wallet_address: "",
 	});
+
 	const [flexDirection, setFlexDirection] = useState(
 		"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
 	);
+
 	const handleClick = useCallback(() => {
 		if (handleFocus.current) {
 			handleFocus.current.focus();
 		}
 	}, []);
+
+	// =====validations=========
+	function validateUserAddress() {
+		const isValid = validate(
+			inputValue.user_wallet_address,
+			currencyData.response_currency
+		);
+
+		if (isValid) {
+			setInvalidAddress(false); // Enable the submit button
+		} else {
+			setInvalidAddress(true); // Disable the submit button
+		}
+	}
+
+	useEffect(() => {
+		validateUserAddress();
+		console.log(invalidAddress);
+	}, [inputValue.user_wallet_address, currencyData.response_currency]);
+
+	// =====validations-end=========
 
 	function handleBlur() {
 		if (!inputValue.user_wallet_address) {
@@ -65,10 +100,16 @@ export default function EnterWalletAddress({
 				onClick={() => (
 					handleClick(),
 					setFlexDirection(
-						"flex-col items-start border border-white py-2 text-sm bg-transparent"
+						"flex-col items-start  border border-white py-2 text-sm bg-transparent"
 					)
 				)}
-				className={`${flexDirection} mt-4 flex h-[55px] cursor-pointer rounded-lg  px-5`}
+				className={`${flexDirection} ${
+					inputValue.user_wallet_address !== ""
+						? invalidAddress
+							? "border border-[crimson] bg-[#63071a]"
+							: "border-green-500 bg-green-900"
+						: ""
+				} mt-4 flex h-[55px] cursor-pointer rounded-lg px-5 active:border-white  active:bg-transparent`}
 			>
 				<div className="text-[white]">
 					Recipient {currencyAddresses.user_Wallet_Address} address
@@ -84,11 +125,11 @@ export default function EnterWalletAddress({
 				/>
 			</div>
 			<input
-				disabled={!inputValue.user_wallet_address}
+				disabled={invalidAddress}
 				type="submit"
 				value="Create an exchange"
 				className="mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white transition-all hover:bg-[#370b97c9]
-							active:scale-[1.03] disabled:transform-none disabled:bg-[#370b97c9] disabled:opacity-[0.3]"
+							active:scale-[1.03] disabled:transform-none disabled:cursor-not-allowed disabled:bg-[#370b97c9] disabled:opacity-[0.3]"
 			/>
 		</div>
 	);
