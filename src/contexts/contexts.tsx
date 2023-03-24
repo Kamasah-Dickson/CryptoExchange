@@ -107,6 +107,14 @@ interface currencyNameContextProp {
 		user_Wallet_Address: string;
 		refund_Wallet_Address: string;
 	};
+	walletInputValue: {
+		recipient_wallet_address: string;
+	};
+	setwalletInputValue: React.Dispatch<
+		React.SetStateAction<{
+			recipient_wallet_address: string;
+		}>
+	>;
 }
 
 export const currencyNameContext = createContext<currencyNameContextProp>({
@@ -160,6 +168,10 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 		response_coins: 0.0123,
 		userCoins: 0.1,
 	},
+	walletInputValue: {
+		recipient_wallet_address: "",
+	},
+	setwalletInputValue: () => {},
 });
 
 function CurrencyContext({ children }: childProp) {
@@ -213,6 +225,10 @@ function CurrencyContext({ children }: childProp) {
 		userCoins: 0.1,
 	});
 
+	const [walletInputValue, setwalletInputValue] = useState({
+		recipient_wallet_address: "",
+	});
+
 	return (
 		<currencyNameContext.Provider
 			value={{
@@ -222,6 +238,8 @@ function CurrencyContext({ children }: childProp) {
 				setCurrencies,
 				currencyData,
 				setcurrencyData,
+				walletInputValue,
+				setwalletInputValue,
 			}}
 		>
 			{children}
