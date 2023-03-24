@@ -5,15 +5,22 @@ import React, {
 	useContext,
 	useEffect,
 } from "react";
-import me from "../assets/EgLF6Jmi_4x.jpg";
+import metamaskImg from "../assets/metamask-fox.svg";
 import { validate } from "multicoin-address-validator/dist/wallet-address-validator";
-
+import { toast, ToastContainer, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { currencyNameContext } from "../contexts/contexts";
 interface WalletaddressProp {
 	currencyAddresses: {
-		user_Wallet_Address: string;
+		recipient_wallet_address: string;
 		refund_Wallet_Address: string;
 	};
+}
+
+declare global {
+	interface Window {
+		ethereum?: any;
+	}
 }
 
 export default function EnterWalletAddress({
@@ -24,12 +31,12 @@ export default function EnterWalletAddress({
 
 	const handleFocus = useRef<HTMLInputElement>(null);
 
-	const [inputValue, setInputValue] = useState({
-		user_wallet_address: "",
+	const [walletInputValue, setwalletInputValue] = useState({
+		recipient_wallet_address: "",
 	});
 
 	const [flexDirection, setFlexDirection] = useState(
-		"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
+		"flex-row items-center bg-[#80808034]"
 	);
 
 	const handleClick = useCallback(() => {
@@ -38,53 +45,84 @@ export default function EnterWalletAddress({
 		}
 	}, []);
 
+	// ====connectWithMetaMask======
+	async function ConnectWithMetaMask() {
+		if (typeof (window as any).ethereum !== "undefined") {
+			try {
+				const accounts = await window.ethereum.request({
+					method: "eth_requestAccounts",
+				});
+				const account = accounts[0];
+				setwalletInputValue((prev) => ({
+					...prev,
+					recipient_wallet_address: account,
+				}));
+				setFlexDirection("flex-col items-start py-2 text-sm");
+			} catch (error: any) {
+				toast.error(error.message, {
+					position: toast.POSITION.BOTTOM_RIGHT,
+					toastId: "preventDuplicate-yes",
+				});
+			}
+		} else {
+			toast.error("Install the MetaMask extension", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+				toastId: "preventDuplicate-yes",
+			});
+		}
+	}
+
+	// ====Ending of connectWithMetaMask======
+
 	// =====validations=========
 	function validateUserAddress() {
 		const isValid = validate(
-			inputValue.user_wallet_address,
+			walletInputValue.recipient_wallet_address,
 			currencyData.response_currency
 		);
 
 		if (isValid) {
 			setInvalidAddress(false); // Enable the submit button
+			console.log("false");
 		} else {
 			setInvalidAddress(true); // Disable the submit button
+			console.log("true");
 		}
 	}
 
 	useEffect(() => {
 		validateUserAddress();
-		console.log(invalidAddress);
-	}, [inputValue.user_wallet_address, currencyData.response_currency]);
+	}, [
+		walletInputValue.recipient_wallet_address,
+		currencyData.response_currency,
+	]);
 
 	// =====validations-end=========
 
 	function handleBlur() {
-		if (!inputValue.user_wallet_address) {
+		if (walletInputValue.recipient_wallet_address && invalidAddress) {
 			setFlexDirection(
-				"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
+				"flex-col items-start border border-[crimson] bg-[#63071a] py-2 text-sm"
 			);
-		} else {
+		} else if (walletInputValue.recipient_wallet_address && !invalidAddress) {
 			setFlexDirection(
-				"flex-col items-start border border-white py-2 text-sm bg-transparent"
+				"flex-col items-start border border-green-500 bg-green-900 py-2 text-sm"
 			);
 		}
 	}
 
 	function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setInputValue((prev) => ({
+		setwalletInputValue((prev) => ({
 			...prev,
-			[event.target.name]: event.target.value,
+			[event.target.name]: event.target.value.trim(),
 		}));
 
-		if (event.target.value) {
+		if (event.target.value.trim() && invalidAddress) {
 			setFlexDirection(
-				"flex-col items-start border border-white py-2 text-sm bg-transparent"
+				"flex-col items-start border border-[crimson] py-2 text-sm bg-[#63071a]"
 			);
 		} else {
-			setFlexDirection(
-				"flex-row items-center bg-[#80808034] hover:bg-[#8080803b]"
-			);
+			setFlexDirection("flex-row items-center bg-[#80808034]");
 		}
 	}
 
@@ -92,8 +130,14 @@ export default function EnterWalletAddress({
 		<div className="mt-10">
 			<div className="flex items-center justify-between gap-5">
 				<h3 className="text-lg font-medium">Enter your wallet address</h3>
-				<div className="h-5 w-5">
-					<img className="h-full w-full" src={me} alt="metamask" />
+				<div className="h-7 w-7 cursor-pointer">
+					<ToastContainer autoClose={4500} transition={Zoom} />
+					<img
+						className="h-full w-full"
+						src={metamaskImg}
+						alt="metamask"
+						onClick={() => ConnectWithMetaMask()}
+					/>
 				</div>
 			</div>
 			<div
@@ -104,7 +148,7 @@ export default function EnterWalletAddress({
 					)
 				)}
 				className={`${flexDirection} ${
-					inputValue.user_wallet_address !== ""
+					walletInputValue.recipient_wallet_address !== ""
 						? invalidAddress
 							? "border border-[crimson] bg-[#63071a]"
 							: "border-green-500 bg-green-900"
@@ -112,11 +156,12 @@ export default function EnterWalletAddress({
 				} mt-4 flex h-[55px] cursor-pointer rounded-lg px-5 active:border-white  active:bg-transparent`}
 			>
 				<div className="text-[white]">
-					Recipient {currencyAddresses.user_Wallet_Address} address
+					Recipient {currencyData.response_currency} address
 				</div>
 				<input
-					name="user_wallet_address"
-					value={inputValue.user_wallet_address}
+					autoComplete="off"
+					name="recipient_wallet_address"
+					value={walletInputValue.recipient_wallet_address}
 					ref={handleFocus}
 					onChange={(e) => handleInputChange(e)}
 					onBlur={handleBlur}
