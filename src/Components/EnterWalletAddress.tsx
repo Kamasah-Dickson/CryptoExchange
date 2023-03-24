@@ -18,14 +18,11 @@ declare global {
 }
 
 export default function EnterWalletAddress() {
-	const { currencyData } = useContext(currencyNameContext);
+	const { currencyData, walletInputValue, setwalletInputValue } =
+		useContext(currencyNameContext);
 	const [invalidAddress, setInvalidAddress] = useState(true);
 
 	const handleFocus = useRef<HTMLInputElement>(null);
-
-	const [walletInputValue, setwalletInputValue] = useState({
-		recipient_wallet_address: "",
-	});
 
 	const [flexDirection, setFlexDirection] = useState(
 		"flex-row items-center bg-[#80808034]"
@@ -75,10 +72,8 @@ export default function EnterWalletAddress() {
 
 		if (isValid) {
 			setInvalidAddress(false); // Enable the submit button
-			console.log("false");
 		} else {
 			setInvalidAddress(true); // Disable the submit button
-			console.log("true");
 		}
 	}
 
