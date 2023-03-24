@@ -10,12 +10,6 @@ import { validate } from "multicoin-address-validator/dist/wallet-address-valida
 import { toast, ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { currencyNameContext } from "../contexts/contexts";
-interface WalletaddressProp {
-	currencyAddresses: {
-		recipient_wallet_address: string;
-		refund_Wallet_Address: string;
-	};
-}
 
 declare global {
 	interface Window {
@@ -23,9 +17,7 @@ declare global {
 	}
 }
 
-export default function EnterWalletAddress({
-	currencyAddresses,
-}: WalletaddressProp) {
+export default function EnterWalletAddress() {
 	const { currencyData } = useContext(currencyNameContext);
 	const [invalidAddress, setInvalidAddress] = useState(true);
 
