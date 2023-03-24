@@ -30,10 +30,7 @@ function CurrencyCard() {
 				<div className="px-8 md:px-10">
 					<div className="mx-auto mt-10">
 						<div className="flex flex-col items-center justify-center gap-4">
-							<YouSend
-								userCurrency={currencyData.userCurrency}
-								currencies={currencies}
-							/>
+							<YouSend userCurrency={currencyData.userCurrency} />
 							<YouGet currencies={currencies} />
 						</div>
 					</div>
@@ -54,7 +51,7 @@ function CurrencyCard() {
 							showAdditionalDetails ? "h-auto" : "h-0 overflow-hidden"
 						}`}
 					>
-						<EnterWalletAddress currencyAddresses={currencyAddresses} />
+						<EnterWalletAddress />
 						<AdditionalInfo />
 					</div>
 					<div
