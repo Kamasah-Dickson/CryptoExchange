@@ -162,8 +162,6 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 	},
 });
 
-// const [currencyStat]
-
 function CurrencyContext({ children }: childProp) {
 	const [currencyAddresses, setcurrencyAddresses] = useState({
 		user_Wallet_Address: "bitcoin",
