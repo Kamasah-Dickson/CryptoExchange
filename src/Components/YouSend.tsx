@@ -4,35 +4,10 @@ import Decimal from "decimal.js";
 import { currencyNameContext } from "../contexts/contexts";
 interface exchangeProp {
 	userCurrency: string;
-
-	currencies: {
-		btc: {
-			value: number;
-		};
-		usdcc: {
-			value: number;
-		};
-		eth: {
-			value: number;
-		};
-		ltc: {
-			value: number;
-		};
-		xmr: {
-			value: number;
-		};
-
-		loom: {
-			value: number;
-		};
-		vot: {
-			value: number;
-		};
-	}[];
 }
 
-function YouSend({ currencies, userCurrency }: exchangeProp) {
-	const { setcurrencyAddresses, setcurrencyData, currencyData } =
+function YouSend({ userCurrency }: exchangeProp) {
+	const { setcurrencyAddresses, currencies, setcurrencyData, currencyData } =
 		useContext(currencyNameContext);
 
 	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
