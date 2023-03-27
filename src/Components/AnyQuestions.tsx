@@ -1,8 +1,3 @@
-import {
-	MdOutlineKeyboardArrowUp,
-	MdOutlineKeyboardArrowDown,
-} from "react-icons/md";
-import { useState } from "react";
 import Questions from "./Questions";
 import { Link } from "react-router-dom";
 
