@@ -82,7 +82,7 @@ function YouGet({ currencies }: exchangeProp) {
 	return (
 		<div className="flex w-full flex-col gap-2">
 			<label htmlFor="youGet" className="text-left sm:hidden">
-				You send
+				You Get
 			</label>
 			<div className="flex items-center justify-between gap-[3px]">
 				<div className=" relative flex h-[50px] flex-[2] items-center justify-between">
