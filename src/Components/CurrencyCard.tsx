@@ -24,7 +24,7 @@ function CurrencyCard() {
 			className="my-max2 my-scrollbar my-5 mt-10 rounded-xl bg-[#180442] text-white shadow-2xl md:rounded-2xl lg:rounded-3xl"
 			onSubmit={(e) => handleSubmit(e)}
 		>
-			<div className="flex flex-col justify-center p-4">
+			<div className="flex flex-col justify-center p-0 pt-4 md:p-4 md:pt-0">
 				<h2 className="mt-4 text-center text-2xl font-semibold text-white md:text-3xl">
 					Crypto Exchange
 				</h2>
