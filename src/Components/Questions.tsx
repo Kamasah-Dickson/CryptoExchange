@@ -11,16 +11,15 @@ interface questionsProp {
 		title: string;
 		text: JSX.Element;
 	}[];
-	height: string;
 }
 
-function Questions({ title, answer, arrayOfAnswers, height }: questionsProp) {
+function Questions({ title, answer, arrayOfAnswers }: questionsProp) {
 	const [show, setShow] = useState(true);
 	return (
 		<>
 			<div
 				className={`my-trans mt-3 ${
-					show ? "h-[28px] md:h-[35px]" : `h-[${height}]`
+					show && "h-[28px] md:h-[35px]"
 				} overflow-hidden`}
 			>
 				<h4
