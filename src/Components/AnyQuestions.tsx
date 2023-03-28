@@ -46,7 +46,6 @@ function AnyQuestions() {
 		<div className="mt-10 pb-8">
 			<h3 className="mb-7 text-2xl md:text-3xl">Have any questions?</h3>
 			<Questions
-				height="180px"
 				title="What is the recipient's address and where do I get it?"
 				answer={
 					<p className="text-sm font-normal text-[#eae3fc]">
@@ -62,12 +61,10 @@ function AnyQuestions() {
 				}
 			/>
 			<Questions
-				height="350px"
 				title="Why is my recipient address shown as invalid?"
 				arrayOfAnswers={MultipleAnswers}
 			/>
 			<Questions
-				height="180px"
 				title="How do I get cashback for the exchange?"
 				answer={
 					<p className="text-sm font-normal text-[#eae3fc]">
