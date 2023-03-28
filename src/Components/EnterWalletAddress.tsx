@@ -116,7 +116,9 @@ export default function EnterWalletAddress() {
 	return (
 		<div className="mt-10">
 			<div className="flex items-center justify-between gap-5">
-				<h3 className="text-lg font-medium">Enter your wallet address</h3>
+				<h3 className="text-base font-medium md:text-lg">
+					Enter your wallet address
+				</h3>
 				<div className="h-7 w-7 cursor-pointer">
 					<ToastContainer autoClose={4500} transition={Zoom} />
 					<img
