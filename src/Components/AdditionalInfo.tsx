@@ -63,7 +63,6 @@ function AdditionalInfo() {
 	const handleFocus2 = useRef<HTMLInputElement>(null);
 	const {
 		currencyAddresses,
-		invalidAddress,
 		walletInputValue,
 		setInvalidAddress,
 		currencyData,
@@ -104,21 +103,21 @@ function AdditionalInfo() {
 	}, []);
 
 	function handleBlur() {
-		if (!reducerState.wallet_address && invalidAddress2) {
+		if (reducerState.wallet_address !== "" && invalidAddress2) {
 			dispatch({
-				type: "flex-direction2",
+				type: "flex-direction",
 				value:
-					"flex-col items-start border border-[crimson] bg-[#63071a] py-2 text-sm",
+					"flex-col items-start border border-[crimson] border-[crimson] bg-[#63071a] py-2 text-sm",
 			});
 		} else if (reducerState.wallet_address && !invalidAddress2) {
 			dispatch({
-				type: "flex-direction2",
+				type: "flex-direction",
 				value:
 					"flex-col items-start border border-green-500 bg-green-900 py-2 text-sm",
 			});
 		} else if (!reducerState.wallet_address) {
 			dispatch({
-				type: "flex-direction2",
+				type: "flex-direction",
 				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
 			});
 		}
@@ -128,7 +127,7 @@ function AdditionalInfo() {
 			dispatch({
 				type: "flex-direction2",
 				value:
-					"flex-col items-start text-sm py-2 bg-[#80808034] hover:bg-[#8080803b]",
+					"flex-col items-start bg-green-900 text-sm py-2 hover:bg-green-800",
 			});
 		} else {
 			dispatch({
@@ -192,84 +191,97 @@ function AdditionalInfo() {
 				)}
 			</h3>
 
-			<div
-				className={`mt-10 transition-all ${
-					showInfo ? "h-[350px] md:h-[180px]" : "h-[0px]"
-				} flex flex-col gap-6 overflow-hidden`}
-			>
-				<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
-					<div className="flex-1">
-						<h3 className="font-medium text-white">
-							Enter your refund Address
-						</h3>
-						<p className="text-sm text-[grey]">
-							We recommend adding your wallet address for a refund.
-						</p>
-					</div>
-					<div
-						onClick={() => (
-							handleClick(),
-							dispatch({
-								type: "flex-direction",
-								value:
-									"flex-col items-start border  py-2 text-sm bg-transparent",
-							})
-						)}
-						className={`${reducerState.flexDirection} ${
-							reducerState.wallet_address !== "" && invalidAddress2
-								? " border-[crimson]"
-								: reducerState.wallet_address === ""
-								? ""
-								: " border-green-500"
-						} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg border px-5`}
-					>
-						<div className="text-[white]">
-							Recipient {currencyAddresses.refund_Wallet_Address} address
+			<div>
+				<div
+					className={`mt-10 transition-all ${
+						showInfo ? "h-[350px] md:h-[180px]" : "h-[0px]"
+					} flex flex-col gap-6 overflow-hidden`}
+				>
+					<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
+						<div className="flex-1">
+							<h3 className="font-medium text-white">
+								Enter your refund Address
+							</h3>
+							<p className="text-sm text-[grey]">
+								We recommend adding your wallet address for a refund.
+							</p>
 						</div>
-						<input
-							name="wallet_address"
-							ref={handleFocus}
-							onChange={(e) => handleInputChange(e)}
-							onBlur={handleBlur}
-							className=" h-[55px] w-full flex-1 bg-transparent outline-none"
-							type="text"
-						/>
+						<div
+							onClick={() => (
+								handleClick(),
+								dispatch({
+									type: "flex-direction",
+									value:
+										"flex-col items-start border  py-2 text-sm bg-transparent",
+								})
+							)}
+							className={`${reducerState.flexDirection} ${
+								reducerState.wallet_address !== "" && invalidAddress2
+									? " border-[crimson]"
+									: reducerState.wallet_address === ""
+									? ""
+									: " border-green-500"
+							} mt-4 flex h-[55px] flex-1  cursor-pointer rounded-lg px-5`}
+						>
+							<div className="text-[white]">
+								Recipient {currencyAddresses.refund_Wallet_Address} address
+							</div>
+							<input
+								name="wallet_address"
+								ref={handleFocus}
+								onChange={(e) => handleInputChange(e)}
+								onBlur={handleBlur}
+								className=" h-[55px] w-full flex-1 bg-transparent outline-none"
+								type="text"
+							/>
+						</div>
 					</div>
-				</div>
-				<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
-					<div className="flex-1">
-						<h3 className="font-medium text-white">Add your Email</h3>
-						<p className="text-sm text-[grey]">
-							Add your email to get notifications about this exchange.
-						</p>
-					</div>
+					<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
+						<div className="flex-1">
+							<h3 className="font-medium text-white">Add your Email</h3>
+							<p className="text-sm text-[grey]">
+								Add your email to get notifications about this exchange.
+							</p>
+						</div>
 
-					<div
-						onClick={() => (
-							handleClick2(),
-							dispatch({
-								type: "flex-direction2",
-								value:
-									"flex-col items-start border py-2 text-sm bg-transparent",
-							})
-						)}
-						className={`${reducerState.flexDirection2} ${
-							validEmail ? "border border-green-500" : "border-[crimson]"
-						} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
-					>
-						<div className="text-[white]">Enter your Email address</div>
-						<input
-							value={reducerState.email}
-							name="email"
-							autoComplete="off"
-							ref={handleFocus2}
-							onChange={(e) => handleEmail(e)}
-							onBlur={handleBlur2}
-							className=" h-[55px] w-full flex-1 bg-transparent outline-none active:bg-transparent"
-							type="email"
-						/>
+						<div
+							onClick={() => (
+								handleClick2(),
+								dispatch({
+									type: "flex-direction2",
+									value:
+										"flex-col items-start border py-2 text-sm bg-transparent",
+								})
+							)}
+							className={`${reducerState.flexDirection2} ${
+								validEmail
+									? "border border-green-500"
+									: reducerState.email === ""
+									? null
+									: "border-[crimson]"
+							} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
+						>
+							<div className="text-[white]">Enter your Email address</div>
+							<input
+								value={reducerState.email}
+								name="email"
+								autoComplete="off"
+								ref={handleFocus2}
+								onChange={(e) => handleEmail(e)}
+								onBlur={handleBlur2}
+								className=" h-[55px] w-full flex-1 bg-transparent outline-none active:bg-transparent"
+								type="email"
+							/>
+						</div>
 					</div>
 				</div>
+				{reducerState.email === ""
+					? null
+					: !validEmail && (
+							<p className="text-right text-sm text-[crimson]">
+								something wrong with the email address
+							</p>
+					  )}
 			</div>
 		</div>
 	);
