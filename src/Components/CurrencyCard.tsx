@@ -21,6 +21,11 @@ function CurrencyCard() {
 		showAdditionalDetails && navigate("/exchange");
 	}
 
+	const [prevCurrencies, setprevUserCurrency] = useState({
+		prevUserCurrency: currencyData.userCurrency,
+		prevResponseCurrency: currencyData.response_currency,
+	});
+
 	return (
 		<form
 			className="my-max2 my-scrollbar my-5 mt-10 rounded-xl bg-[#180442] text-white shadow-2xl md:rounded-2xl lg:rounded-3xl"
@@ -33,8 +38,16 @@ function CurrencyCard() {
 				<div className="px-8 md:px-10">
 					<div className="mx-auto mt-10">
 						<div className="flex flex-col items-center justify-center gap-4">
-							<YouSend userCurrency={currencyData.userCurrency} />
-							<YouGet currencies={currencies} />
+							<YouSend
+								prevCurrencies={prevCurrencies}
+								userCurrency={currencyData.userCurrency}
+								setprevUserCurrency={setprevUserCurrency}
+							/>
+							<YouGet
+								prevCurrencies={prevCurrencies}
+								setprevUserCurrency={setprevUserCurrency}
+								currencies={currencies}
+							/>
 						</div>
 					</div>
 					<div className={`${showAdditionalDetails ? "hidden" : "pb-10 pt-5"}`}>

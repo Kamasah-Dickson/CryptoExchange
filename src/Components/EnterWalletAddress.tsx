@@ -88,6 +88,12 @@ export default function EnterWalletAddress() {
 		currencyData.response_currency,
 	]);
 
+	useEffect(() => {
+		if (walletInputValue.recipient_wallet_address === "") {
+			setInvalidAddress(true);
+		}
+	});
+
 	// =====validations-end=========
 
 	function handleBlur() {
@@ -117,10 +123,6 @@ export default function EnterWalletAddress() {
 		} else {
 			setFlexDirection("flex-row items-center bg-[#80808034]");
 		}
-	}
-
-	if (walletInputValue.recipient_wallet_address === "") {
-		setInvalidAddress(true);
 	}
 
 	return (

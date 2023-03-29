@@ -89,7 +89,6 @@ function AdditionalInfo() {
 
 	useEffect(() => {
 		validateUserAddress();
-		console.log("hello");
 	}, [reducerState.wallet_address, currencyData.userCurrency]);
 
 	const handleClick = useCallback(() => {
@@ -237,6 +236,7 @@ function AdditionalInfo() {
 							</div>
 							<input
 								value={reducerState.wallet_address}
+								autoComplete="off"
 								name="wallet_address"
 								ref={handleFocus}
 								onChange={(e) => handleInputChange(e)}
