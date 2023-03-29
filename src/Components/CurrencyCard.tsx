@@ -8,8 +8,7 @@ import AnyQuestions from "./AnyQuestions";
 import { useNavigate } from "react-router";
 
 function CurrencyCard() {
-	const { currencies, currencyData, setInvalidAddress, walletInputValue } =
-		useContext(currencyNameContext);
+	const { currencies, currencyData } = useContext(currencyNameContext);
 
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
 	const navigate = useNavigate();

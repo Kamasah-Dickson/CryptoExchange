@@ -1,47 +1,6 @@
 import Questions from "./Questions";
-import { Link } from "react-router-dom";
 
 function Exchange_Questions() {
-	const MultipleAnswers = [
-		{
-			title: "The spelling of the address.",
-			text: (
-				<p className="text-[#b4b4b4]">
-					Make sure that the address contains all the necessary characters,
-					suffixes, and prefixes (dots, dashes).,
-				</p>
-			),
-		},
-		{
-			title: "Extra spaces.",
-			text: (
-				<p className="text-[#b4b4b4]">
-					Make sure all address characters have been copied. Сheck if there are
-					no spaces at the beginning and the end of the address.,
-				</p>
-			),
-		},
-		{
-			title: "Incorrect blockchain.",
-			text: (
-				<p className="text-[#b4b4b4]">
-					Make sure that the network of the selected coin matches the network
-					your address belongs to.,
-				</p>
-			),
-		},
-		{
-			title: "Some other issues.",
-			text: (
-				<p>
-					Feel free to contact our support team which via email{" "}
-					<span className="text-[#a985fd]">(support@simpleswap.io)</span> or
-					live chat.
-				</p>
-			),
-		},
-	];
-
 	return (
 		<div className="mt-10 pb-8">
 			<h3 className="mb-7 text-2xl md:text-3xl">Have any questions?</h3>

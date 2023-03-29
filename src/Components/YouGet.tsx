@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Decimal from "decimal.js";
 import { currencyNameContext } from "../contexts/contexts";
 

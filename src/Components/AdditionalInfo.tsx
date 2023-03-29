@@ -66,7 +66,6 @@ function AdditionalInfo() {
 		walletInputValue,
 		setInvalidAddress,
 		currencyData,
-		invalidAddress,
 	} = useContext(currencyNameContext);
 	const [invalidAddress2, setInvalidAddress2] = useState(true);
 	const [validEmail, setValidEmail] = useState(false);
