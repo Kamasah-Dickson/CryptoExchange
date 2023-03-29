@@ -1,12 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import React, { useEffect, useContext } from "react";
 import Decimal from "decimal.js";
 import { currencyNameContext } from "../contexts/contexts";
 interface exchangeProp {
 	userCurrency: string;
+	prevCurrencies: {
+		prevUserCurrency: string;
+		prevResponseCurrency: string;
+	};
+	setprevUserCurrency: React.Dispatch<
+		React.SetStateAction<{
+			prevUserCurrency: string;
+			prevResponseCurrency: string;
+		}>
+	>;
 }
 
-function YouSend({ userCurrency }: exchangeProp) {
+function YouSend({
+	userCurrency,
+	prevCurrencies,
+	setprevUserCurrency,
+}: exchangeProp) {
 	const { setcurrencyAddresses, currencies, setcurrencyData, currencyData } =
 		useContext(currencyNameContext);
 
@@ -69,6 +82,27 @@ function YouSend({ userCurrency }: exchangeProp) {
 		}));
 	}
 
+	// =========switch up options if user tries to make them the same=========
+
+	function handleSendBlur() {
+		if (currencyData.userCurrency !== prevCurrencies.prevUserCurrency) {
+			setprevUserCurrency((prev) => ({
+				...prev,
+				prevUserCurrency: currencyData.userCurrency,
+			}));
+		}
+	}
+
+	function handleSendClick() {
+		handleSendBlur();
+		if (currencyData.response_currency === currencyData.userCurrency) {
+			setcurrencyData((prev) => ({
+				...prev,
+				response_currency: prevCurrencies.prevUserCurrency,
+			}));
+		}
+	}
+	//
 	return (
 		<div className="flex w-full flex-col gap-2">
 			<label htmlFor="youSend" className="text-left sm:hidden">
@@ -93,6 +127,7 @@ function YouSend({ userCurrency }: exchangeProp) {
 				<select
 					value={currencyData.userCurrency}
 					onChange={(e) => handleCurrency(e)}
+					onClick={handleSendClick}
 					name="userGet"
 					className="flex-2 h-[55px] cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold  uppercase  text-white outline-none transition-all hover:bg-[#370b97f3] md:h-[50px] md:flex-1"
 				>
