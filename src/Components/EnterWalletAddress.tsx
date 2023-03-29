@@ -18,9 +18,13 @@ declare global {
 }
 
 export default function EnterWalletAddress() {
-	const { currencyData, walletInputValue, setwalletInputValue } =
-		useContext(currencyNameContext);
-	const [invalidAddress, setInvalidAddress] = useState(true);
+	const {
+		currencyData,
+		invalidAddress,
+		setInvalidAddress,
+		walletInputValue,
+		setwalletInputValue,
+	} = useContext(currencyNameContext);
 
 	const handleFocus = useRef<HTMLInputElement>(null);
 
