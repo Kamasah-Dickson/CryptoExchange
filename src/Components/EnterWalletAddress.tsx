@@ -99,6 +99,8 @@ export default function EnterWalletAddress() {
 			setFlexDirection(
 				"flex-col items-start border border-green-500 bg-green-900 py-2 text-sm"
 			);
+		} else {
+			setFlexDirection("flex-row items-center bg-[#80808034]");
 		}
 	}
 
@@ -115,6 +117,10 @@ export default function EnterWalletAddress() {
 		} else {
 			setFlexDirection("flex-row items-center bg-[#80808034]");
 		}
+	}
+
+	if (walletInputValue.recipient_wallet_address === "") {
+		setInvalidAddress(true);
 	}
 
 	return (
