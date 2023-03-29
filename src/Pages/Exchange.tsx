@@ -3,7 +3,13 @@ import { v4 as uuidv4 } from "uuid";
 import { currencyNameContext } from "../contexts/contexts";
 import { useNavigate } from "react-router";
 import Header from "../Components/Header";
-import { MdHelp, MdOutlinePendingActions } from "react-icons/md";
+import {
+	MdHelp,
+	MdOutlinePendingActions,
+	MdCurrencyExchange,
+} from "react-icons/md";
+import { FiSend } from "react-icons/fi";
+import { GiConfirmed } from "react-icons/gi";
 import { FiCopy } from "react-icons/fi";
 import QRCode from "react-qr-code";
 import Deposit_step from "../Components/Deposit_step";
@@ -53,8 +59,8 @@ function Exchange() {
 					</div>
 				</div>
 				<div>
-					<div className="rounded-t-2xl bg-[#05051f] py-4 md:bg-transparent">
-						<h3 className="mb-10 text-center text-xl font-medium text-white md:text-2xl md:font-bold md:text-black">
+					<div className="rounded-t-2xl bg-[#05051f] px-2 py-10 md:bg-transparent md:py-4">
+						<h3 className="mb-10 text-center text-2xl font-medium text-white md:text-3xl md:font-bold md:text-black">
 							Awaiting Your Deposit
 						</h3>
 						<div className="mx-auto max-w-xl">
@@ -145,7 +151,7 @@ function Exchange() {
 									steps !== 2 ? "bg-[#01012773]" : "bg-[#110c24]"
 								} w-fit rounded-full  p-2 text-white`}
 							>
-								<MdOutlinePendingActions size={20} />
+								<GiConfirmed size={20} />
 							</div>
 							<p
 								className={`${
@@ -168,7 +174,7 @@ function Exchange() {
 									steps !== 3 ? "bg-[#01012773]" : "bg-[#110c24]"
 								} w-fit rounded-full  p-2 text-white`}
 							>
-								<MdOutlinePendingActions size={20} />
+								<MdCurrencyExchange size={20} />
 							</div>
 							<p
 								className={`${
@@ -191,7 +197,7 @@ function Exchange() {
 									steps !== 4 ? "bg-[#01012773]" : "bg-[#110c24]"
 								} w-fit rounded-full  p-2 text-white`}
 							>
-								<MdOutlinePendingActions size={20} />
+								<FiSend size={20} />
 							</div>
 							<p
 								className={`${
