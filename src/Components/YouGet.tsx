@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Decimal from "decimal.js";
 import { currencyNameContext } from "../contexts/contexts";
 
@@ -27,9 +27,23 @@ interface exchangeProp {
 			value: number;
 		};
 	}[];
+	prevCurrencies: {
+		prevUserCurrency: string;
+		prevResponseCurrency: string;
+	};
+	setprevUserCurrency: React.Dispatch<
+		React.SetStateAction<{
+			prevUserCurrency: string;
+			prevResponseCurrency: string;
+		}>
+	>;
 }
 
-function YouGet({ currencies }: exchangeProp) {
+function YouGet({
+	currencies,
+	prevCurrencies,
+	setprevUserCurrency,
+}: exchangeProp) {
 	const { setcurrencyData, currencyData } = useContext(currencyNameContext);
 	function updateResponseOptions(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
@@ -79,6 +93,29 @@ function YouGet({ currencies }: exchangeProp) {
 		}));
 	}
 
+	// =========switch up options if user tries to make them the same=========
+	function handleGetBlur() {
+		if (
+			currencyData.response_currency !== prevCurrencies.prevResponseCurrency
+		) {
+			setprevUserCurrency((prev) => ({
+				...prev,
+				prevResponseCurrency: currencyData.response_currency,
+			}));
+		}
+	}
+
+	function handleGetClick() {
+		handleGetBlur();
+		if (currencyData.userCurrency === currencyData.response_currency) {
+			setcurrencyData((prev) => ({
+				...prev,
+				userCurrency: prevCurrencies.prevResponseCurrency,
+			}));
+		}
+	}
+	//
+
 	return (
 		<div className="flex w-full flex-col gap-2">
 			<label htmlFor="youGet" className="text-left sm:hidden">
@@ -104,6 +141,7 @@ function YouGet({ currencies }: exchangeProp) {
 				<select
 					value={currencyData.response_currency}
 					onChange={(e) => handleCurrency(e)}
+					onClick={handleGetClick}
 					name="responseCurrencyName"
 					id="user_Wallet_Address"
 					className="flex-2 h-[50px] cursor-pointer rounded-r-md bg-[#210857] p-1 font-bold uppercase text-white outline-none transition-all hover:bg-[#370b97f3] md:flex-1"
