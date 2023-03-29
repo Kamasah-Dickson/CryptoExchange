@@ -115,6 +115,8 @@ interface currencyNameContextProp {
 			recipient_wallet_address: string;
 		}>
 	>;
+	setInvalidAddress: React.Dispatch<React.SetStateAction<boolean>>;
+	invalidAddress: boolean;
 }
 
 export const currencyNameContext = createContext<currencyNameContextProp>({
@@ -172,6 +174,8 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 		recipient_wallet_address: "",
 	},
 	setwalletInputValue: () => {},
+	setInvalidAddress: () => {},
+	invalidAddress: true,
 });
 
 function CurrencyContext({ children }: childProp) {
@@ -229,6 +233,8 @@ function CurrencyContext({ children }: childProp) {
 		recipient_wallet_address: "",
 	});
 
+	const [invalidAddress, setInvalidAddress] = useState(true);
+
 	return (
 		<currencyNameContext.Provider
 			value={{
@@ -240,6 +246,8 @@ function CurrencyContext({ children }: childProp) {
 				setcurrencyData,
 				walletInputValue,
 				setwalletInputValue,
+				invalidAddress,
+				setInvalidAddress,
 			}}
 		>
 			{children}
