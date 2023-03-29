@@ -124,11 +124,19 @@ function AdditionalInfo() {
 	}
 	function handleBlur2() {
 		if (reducerState.email) {
-			dispatch({
-				type: "flex-direction2",
-				value:
-					"flex-col items-start bg-green-900 text-sm py-2 hover:bg-green-800",
-			});
+			if (validEmail) {
+				dispatch({
+					type: "flex-direction2",
+					value:
+						"flex-col items-start bg-green-900 text-sm py-2 hover:bg-green-800",
+				});
+			} else if (!validEmail) {
+				dispatch({
+					type: "flex-direction2",
+					value:
+						"flex-col items-start bg-[#63071a] border border-[crimson] text-sm py-2 hover:bg-red-[#63071a]",
+				});
+			}
 		} else {
 			dispatch({
 				type: "flex-direction2",
