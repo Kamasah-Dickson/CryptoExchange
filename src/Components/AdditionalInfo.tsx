@@ -2,8 +2,16 @@ import {
 	MdOutlineKeyboardArrowDown,
 	MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import { useState, useRef, useCallback, useReducer, useContext } from "react";
+import {
+	useState,
+	useRef,
+	useCallback,
+	useReducer,
+	useContext,
+	useEffect,
+} from "react";
 import { currencyNameContext } from "../contexts/contexts";
+import { validate } from "multicoin-address-validator/dist/wallet-address-validator";
 
 const initialState = {
 	flexDirection: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
@@ -53,7 +61,36 @@ function AdditionalInfo() {
 	const [reducerState, dispatch] = useReducer(reducer, initialState);
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const handleFocus2 = useRef<HTMLInputElement>(null);
-	const { currencyAddresses } = useContext(currencyNameContext);
+	const {
+		currencyAddresses,
+		invalidAddress,
+		walletInputValue,
+		setInvalidAddress,
+		currencyData,
+	} = useContext(currencyNameContext);
+	const [invalidAddress2, setInvalidAddress2] = useState(true);
+	const [validEmail, setValidEmail] = useState(false);
+
+	function validateUserAddress() {
+		const isValid = validate(
+			reducerState.wallet_address,
+			currencyData.userCurrency
+		);
+
+		if (isValid) {
+			setInvalidAddress2(false);
+		} else if (reducerState.wallet_address === "") {
+			setInvalidAddress(false);
+		} else {
+			setInvalidAddress2(true);
+			setInvalidAddress(true);
+		}
+	}
+
+	useEffect(() => {
+		validateUserAddress();
+	}, [reducerState.wallet_address, currencyData.userCurrency]);
+
 	const handleClick = useCallback(() => {
 		if (handleFocus.current) {
 			handleFocus.current.focus();
@@ -67,31 +104,36 @@ function AdditionalInfo() {
 	}, []);
 
 	function handleBlur() {
-		if (!reducerState.wallet_address) {
+		if (!reducerState.wallet_address && invalidAddress2) {
 			dispatch({
-				type: "flex-direction",
-				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
-			});
-		} else {
-			dispatch({
-				type: "flex-direction",
+				type: "flex-direction2",
 				value:
-					"flex-col items-start border border-white py-2 text-sm bg-transparent",
+					"flex-col items-start border border-[crimson] bg-[#63071a] py-2 text-sm",
+			});
+		} else if (reducerState.wallet_address && !invalidAddress2) {
+			dispatch({
+				type: "flex-direction2",
+				value:
+					"flex-col items-start border border-green-500 bg-green-900 py-2 text-sm",
+			});
+		} else if (!reducerState.wallet_address) {
+			dispatch({
+				type: "flex-direction2",
+				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
 			});
 		}
 	}
-
 	function handleBlur2() {
-		if (!reducerState.email) {
+		if (reducerState.email) {
 			dispatch({
 				type: "flex-direction2",
-				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
+				value:
+					"flex-col items-start text-sm py-2 bg-[#80808034] hover:bg-[#8080803b]",
 			});
 		} else {
 			dispatch({
 				type: "flex-direction2",
-				value:
-					"flex-col items-start border border-white py-2 text-sm bg-transparent",
+				value: "flex-row items-center bg-[#80808034] hover:bg-[#8080803b]",
 			});
 		}
 	}
@@ -100,10 +142,10 @@ function AdditionalInfo() {
 		dispatch({ type: "walletInput", value: event.target.value });
 
 		if (event.target.value) {
+			validateUserAddress();
 			dispatch({
 				type: "flex-direction",
-				value:
-					"flex-col items-start border border-white py-2 text-sm bg-transparent",
+				value: "flex-col items-start border py-2 text-sm bg-transparent",
 			});
 		} else {
 			dispatch({
@@ -112,15 +154,22 @@ function AdditionalInfo() {
 			});
 		}
 	}
-	function handleInputChange2(event: React.ChangeEvent<HTMLInputElement>) {
+
+	function handleEmail(event: React.ChangeEvent<HTMLInputElement>) {
 		dispatch({ type: "email", value: event.target.value });
 
+		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 		if (event.target.value) {
+			const isValid = regex.test(event.target.value);
+			setValidEmail(isValid);
 			dispatch({
 				type: "flex-direction2",
-				value:
-					"flex-col items-start border border-white py-2 text-sm bg-transparent",
+				value: "flex-col items-start border py-2 text-sm bg-transparent",
 			});
+			if (walletInputValue.recipient_wallet_address === "") {
+				setInvalidAddress(true);
+			}
 		} else {
 			dispatch({
 				type: "flex-direction2",
@@ -163,10 +212,16 @@ function AdditionalInfo() {
 							dispatch({
 								type: "flex-direction",
 								value:
-									"flex-col items-start border border-white py-2 text-sm bg-transparent",
+									"flex-col items-start border  py-2 text-sm bg-transparent",
 							})
 						)}
-						className={`${reducerState.flexDirection} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
+						className={`${reducerState.flexDirection} ${
+							reducerState.wallet_address !== "" && invalidAddress2
+								? " border-[crimson]"
+								: reducerState.wallet_address === ""
+								? ""
+								: " border-green-500"
+						} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg border px-5`}
 					>
 						<div className="text-[white]">
 							Recipient {currencyAddresses.refund_Wallet_Address} address
@@ -195,19 +250,23 @@ function AdditionalInfo() {
 							dispatch({
 								type: "flex-direction2",
 								value:
-									"flex-col items-start border border-white py-2 text-sm bg-transparent",
+									"flex-col items-start border py-2 text-sm bg-transparent",
 							})
 						)}
-						className={`${reducerState.flexDirection2} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
+						className={`${reducerState.flexDirection2} ${
+							validEmail ? "border border-green-500" : "border-[crimson]"
+						} mt-4 flex h-[55px] flex-1 cursor-pointer rounded-lg  px-5`}
 					>
 						<div className="text-[white]">Enter your Email address</div>
 						<input
+							value={reducerState.email}
 							name="email"
+							autoComplete="off"
 							ref={handleFocus2}
-							onChange={(e) => handleInputChange2(e)}
+							onChange={(e) => handleEmail(e)}
 							onBlur={handleBlur2}
-							className=" h-[55px] w-full flex-1 bg-transparent outline-none"
-							type="text"
+							className=" h-[55px] w-full flex-1 bg-transparent outline-none active:bg-transparent"
+							type="email"
 						/>
 					</div>
 				</div>
