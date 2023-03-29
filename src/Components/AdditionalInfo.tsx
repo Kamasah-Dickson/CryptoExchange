@@ -66,6 +66,7 @@ function AdditionalInfo() {
 		walletInputValue,
 		setInvalidAddress,
 		currencyData,
+		invalidAddress,
 	} = useContext(currencyNameContext);
 	const [invalidAddress2, setInvalidAddress2] = useState(true);
 	const [validEmail, setValidEmail] = useState(false);
@@ -88,6 +89,7 @@ function AdditionalInfo() {
 
 	useEffect(() => {
 		validateUserAddress();
+		console.log("hello");
 	}, [reducerState.wallet_address, currencyData.userCurrency]);
 
 	const handleClick = useCallback(() => {
@@ -106,8 +108,7 @@ function AdditionalInfo() {
 		if (reducerState.wallet_address !== "" && invalidAddress2) {
 			dispatch({
 				type: "flex-direction",
-				value:
-					"flex-col items-start border border-[crimson] border-[crimson] bg-[#63071a] py-2 text-sm",
+				value: "flex-col items-start bg-[#63071a] border py-2 text-sm",
 			});
 		} else if (reducerState.wallet_address && !invalidAddress2) {
 			dispatch({
@@ -224,17 +225,18 @@ function AdditionalInfo() {
 								})
 							)}
 							className={`${reducerState.flexDirection} ${
-								reducerState.wallet_address !== "" && invalidAddress2
-									? " border-[crimson]"
-									: reducerState.wallet_address === ""
+								reducerState.wallet_address === ""
 									? ""
-									: " border-green-500"
+									: invalidAddress2
+									? "border-[crimson]"
+									: "border-green-500 bg-green-900"
 							} mt-4 flex h-[55px] flex-1  cursor-pointer rounded-lg px-5`}
 						>
 							<div className="text-[white]">
 								Recipient {currencyAddresses.refund_Wallet_Address} address
 							</div>
 							<input
+								value={reducerState.wallet_address}
 								name="wallet_address"
 								ref={handleFocus}
 								onChange={(e) => handleInputChange(e)}
