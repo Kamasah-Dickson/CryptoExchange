@@ -13,7 +13,7 @@ function Header() {
 						to="/login"
 						className="cursor-pointer rounded-sm bg-[#6f33df5e] py-2 px-5 text-sm transition-all active:scale-[1.05] md:text-base"
 					>
-						Log In
+						Sign In
 					</Link>
 					<Link
 						to="/signup"
