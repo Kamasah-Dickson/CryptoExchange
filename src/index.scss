@@ -51,6 +51,12 @@
 	.my-wrap {
 		overflow-wrap: anywhere;
 	}
-
+	.my-img {
+		background: linear-gradient(rgba(47, 38, 179, 0.438), rgba(0, 0, 0, 0.253)),
+			url("./assets/cdd20-wNnGHhZ9QHA-unsplash.jpg");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
 	// =======================
 }
