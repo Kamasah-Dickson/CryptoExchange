@@ -52,11 +52,22 @@
 		overflow-wrap: anywhere;
 	}
 	.my-img {
-		background: linear-gradient(rgba(47, 38, 179, 0.438), rgba(0, 0, 0, 0.253)),
-			url("./assets/cdd20-wNnGHhZ9QHA-unsplash.jpg");
+		background: url("./assets/cdd20-wNnGHhZ9QHA-unsplash.jpg");
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
+	}
+	.my-img2 {
+		background: linear-gradient(rgba(0, 0, 0, 0), rgba(47, 16, 221, 0.842)),
+			url("./assets/choong-deng-xiang-rVHIqG9tTOE-unsplash.jpg");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		border-radius: 20px;
+	}
+
+	input[type="checkbox"] {
+		background-color: red !important;
 	}
 	// =======================
 }
