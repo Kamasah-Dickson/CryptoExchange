@@ -68,7 +68,7 @@ function SignupWithEmailAndPass({
 							id="email"
 							placeholder="kamasahdickson@example.com"
 						/>
-						{emailLength.length >= 4 && (
+						{emailLength?.length >= 4 && (
 							<img
 								onClick={() => reset({ email: "" })}
 								src={closeIcon}
@@ -93,6 +93,7 @@ function SignupWithEmailAndPass({
 						onClick={() => setAddPasswordBorder(true)}
 						onBlur={() => setAddPasswordBorder(false)}
 						className={`
+						${errors.password?.type === "required" && "border-[crimson]"}
 						${errors.password?.type === "minLength" && "border-[crimson]"}
 						${
 							addPasswordBorder && "border-2 border-[#2d15b8] outline-[#2d15b8]"
@@ -135,7 +136,7 @@ function SignupWithEmailAndPass({
 				{showSignWithEmail ? (
 					<p className="lg:text-center">
 						Already having account ?{" "}
-						<Link className="text-[#2d15b8]" to="/login">
+						<Link className="text-[#2d15b8]" to="/signin">
 							Log in
 						</Link>
 					</p>
