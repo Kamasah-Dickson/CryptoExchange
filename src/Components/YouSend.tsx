@@ -20,7 +20,7 @@ function YouSend({
 	prevCurrencies,
 	setprevUserCurrency,
 }: exchangeProp) {
-	const { setcurrencyAddresses, currencies, setcurrencyData, currencyData } =
+	const { currencies, setcurrencyData, currencyData } =
 		useContext(currencyNameContext);
 
 	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
@@ -76,10 +76,6 @@ function YouSend({
 		const value = e.target.value;
 		setcurrencyData((prev) => ({ ...prev, userCurrency: value }));
 		handleUserAmountChange(currencyData.userCoins);
-		setcurrencyAddresses((prev) => ({
-			...prev,
-			refund_Wallet_Address: (currencies[0] as any)[e.target.value].name,
-		}));
 	}
 
 	// =========switch up options if user tries to make them the same=========

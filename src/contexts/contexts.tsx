@@ -5,13 +5,6 @@ interface childProp {
 }
 
 interface currencyNameContextProp {
-	setcurrencyAddresses: React.Dispatch<
-		React.SetStateAction<{
-			user_Wallet_Address: string;
-			refund_Wallet_Address: string;
-		}>
-	>;
-
 	currencies: {
 		btc: {
 			value: number;
@@ -103,10 +96,6 @@ interface currencyNameContextProp {
 		userCoins: number;
 	};
 
-	currencyAddresses: {
-		user_Wallet_Address: string;
-		refund_Wallet_Address: string;
-	};
 	walletInputValue: {
 		recipient_wallet_address: string;
 	};
@@ -117,14 +106,13 @@ interface currencyNameContextProp {
 	>;
 	setInvalidAddress: React.Dispatch<React.SetStateAction<boolean>>;
 	invalidAddress: boolean;
+	setInvalidAddress2: React.Dispatch<React.SetStateAction<boolean>>;
+	invalidAddress2: boolean;
+	setshouldDisable: React.Dispatch<React.SetStateAction<boolean>>;
+	shouldDisable: boolean;
 }
 
 export const currencyNameContext = createContext<currencyNameContextProp>({
-	currencyAddresses: {
-		user_Wallet_Address: "bitcoin",
-		refund_Wallet_Address: "bitcoin",
-	},
-	setcurrencyAddresses: () => {},
 	setCurrencies: () => {},
 	currencies: [
 		{
@@ -176,14 +164,13 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 	setwalletInputValue: () => {},
 	setInvalidAddress: () => {},
 	invalidAddress: true,
+	invalidAddress2: true,
+	setInvalidAddress2: () => {},
+	setshouldDisable: () => {},
+	shouldDisable: true,
 });
 
 function CurrencyContext({ children }: childProp) {
-	const [currencyAddresses, setcurrencyAddresses] = useState({
-		user_Wallet_Address: "bitcoin",
-		refund_Wallet_Address: "bitcoin",
-	});
-
 	const [currencies, setCurrencies] = useState([
 		{
 			btc: {
@@ -234,12 +221,12 @@ function CurrencyContext({ children }: childProp) {
 	});
 
 	const [invalidAddress, setInvalidAddress] = useState(true);
+	const [invalidAddress2, setInvalidAddress2] = useState(true);
+	const [shouldDisable, setshouldDisable] = useState(true);
 
 	return (
 		<currencyNameContext.Provider
 			value={{
-				currencyAddresses,
-				setcurrencyAddresses,
 				currencies,
 				setCurrencies,
 				currencyData,
@@ -248,6 +235,10 @@ function CurrencyContext({ children }: childProp) {
 				setwalletInputValue,
 				invalidAddress,
 				setInvalidAddress,
+				invalidAddress2,
+				setInvalidAddress2,
+				setshouldDisable,
+				shouldDisable,
 			}}
 		>
 			{children}

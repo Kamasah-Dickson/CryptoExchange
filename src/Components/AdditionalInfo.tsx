@@ -62,12 +62,12 @@ function AdditionalInfo() {
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const handleFocus2 = useRef<HTMLInputElement>(null);
 	const {
-		currencyAddresses,
 		walletInputValue,
 		setInvalidAddress,
 		currencyData,
+		invalidAddress2,
+		setInvalidAddress2,
 	} = useContext(currencyNameContext);
-	const [invalidAddress2, setInvalidAddress2] = useState(true);
 	const [validEmail, setValidEmail] = useState(false);
 
 	function validateUserAddress() {
@@ -78,6 +78,7 @@ function AdditionalInfo() {
 
 		if (isValid) {
 			setInvalidAddress2(false);
+			setInvalidAddress(false);
 		} else if (reducerState.wallet_address === "") {
 			setInvalidAddress(false);
 		} else {
@@ -222,16 +223,18 @@ function AdditionalInfo() {
 										"flex-col items-start border  py-2 text-sm bg-transparent",
 								})
 							)}
-							className={`${reducerState.flexDirection} ${
+							className={`${reducerState.flexDirection}
+							
+							${
 								reducerState.wallet_address === ""
-									? ""
+									? "border-white"
 									: invalidAddress2
 									? "border-[crimson]"
 									: "border-green-500 bg-green-900"
 							} mt-4 flex h-[55px] flex-1  cursor-pointer rounded-lg px-5`}
 						>
 							<div className="text-[white]">
-								Recipient {currencyAddresses.refund_Wallet_Address} address
+								Recipient {currencyData.userCurrency} address
 							</div>
 							<input
 								value={reducerState.wallet_address}

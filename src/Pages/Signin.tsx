@@ -146,7 +146,7 @@ function Signin() {
 							</button>
 
 							<button
-								className="flex w-full max-w-md items-center justify-center gap-3 rounded-xl border border-black py-3 transition-all hover:bg-black hover:text-white active:scale-[1.08]"
+								className="align-center mx-auto flex w-full max-w-md items-center justify-center gap-3 rounded-xl border border-black py-3 transition-all hover:bg-black hover:text-white active:scale-[1.08]"
 								type="button"
 							>
 								<FcGoogle size={25} />

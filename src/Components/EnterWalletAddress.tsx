@@ -24,6 +24,9 @@ export default function EnterWalletAddress() {
 		setInvalidAddress,
 		walletInputValue,
 		setwalletInputValue,
+		invalidAddress2,
+		shouldDisable,
+		setshouldDisable,
 	} = useContext(currencyNameContext);
 
 	const handleFocus = useRef<HTMLInputElement>(null);
@@ -37,6 +40,10 @@ export default function EnterWalletAddress() {
 			handleFocus.current.focus();
 		}
 	}, []);
+
+	useEffect(() => {
+		invalidAddress ? setshouldDisable(true) : setshouldDisable(false);
+	}, [invalidAddress, invalidAddress2]);
 
 	// ====connectWithMetaMask======
 	async function ConnectWithMetaMask() {
@@ -148,13 +155,19 @@ export default function EnterWalletAddress() {
 						"flex-col items-start  border border-white py-2 text-sm bg-transparent"
 					)
 				)}
-				className={`${flexDirection} ${
+				className={`${flexDirection}
+				
+				${
 					walletInputValue.recipient_wallet_address !== ""
-						? invalidAddress
-							? "border border-[crimson] bg-[#63071a]"
-							: "border-green-500 bg-green-900"
-						: ""
-				} mt-4 flex h-[55px] cursor-pointer rounded-lg px-5 active:border-white  active:bg-transparent`}
+						? "border border-[crimson] bg-[#63071a]"
+						: "border-white"
+				}
+				${invalidAddress && "border border-[crimson] bg-[#63071a]"}
+				${!invalidAddress && "border-green-500 bg-green-900"}
+				
+				
+				
+				mt-4 flex h-[55px] cursor-pointer rounded-lg px-5 active:border-white  active:bg-transparent`}
 			>
 				<div className="text-[white]">
 					Recipient {currencyData.response_currency} address
@@ -171,7 +184,7 @@ export default function EnterWalletAddress() {
 				/>
 			</div>
 			<input
-				disabled={invalidAddress}
+				disabled={shouldDisable}
 				type="submit"
 				value="Create an exchange"
 				className="mx-auto mt-4 block w-full cursor-pointer rounded-md bg-[#370b97] py-5 font-normal text-white transition-all hover:bg-[#370b97c9]

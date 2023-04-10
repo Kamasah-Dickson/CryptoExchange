@@ -8,7 +8,8 @@ import AnyQuestions from "./AnyQuestions";
 import { useNavigate } from "react-router";
 
 function CurrencyCard() {
-	const { currencies, currencyData } = useContext(currencyNameContext);
+	const { currencies, currencyData, shouldDisable } =
+		useContext(currencyNameContext);
 
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
 	const navigate = useNavigate();
@@ -17,7 +18,7 @@ function CurrencyCard() {
 		e.preventDefault();
 
 		setShowAdditionalDetails(true);
-		showAdditionalDetails && navigate("/exchange");
+		!shouldDisable && navigate("/exchange");
 	}
 
 	const [prevCurrencies, setprevUserCurrency] = useState({
@@ -51,8 +52,9 @@ function CurrencyCard() {
 					</div>
 					<div className={`${showAdditionalDetails ? "hidden" : "pb-10 pt-5"}`}>
 						<input
+							onClick={() => setShowAdditionalDetails(true)}
 							disabled={currencyData.userCoins > 0 ? false : true}
-							type="submit"
+							type="button"
 							value="Exchange"
 							className={`${
 								showAdditionalDetails
