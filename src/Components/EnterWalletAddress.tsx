@@ -1,10 +1,4 @@
-import React, {
-	useState,
-	useRef,
-	useCallback,
-	useContext,
-	useEffect,
-} from "react";
+import { useState, useRef, useCallback, useContext, useEffect } from "react";
 import metamaskImg from "../assets/metamask-fox.svg";
 import { validate } from "multicoin-address-validator/dist/wallet-address-validator";
 import { toast, ToastContainer, Zoom } from "react-toastify";
@@ -158,14 +152,13 @@ export default function EnterWalletAddress() {
 				className={`${flexDirection}
 				
 				${
-					walletInputValue.recipient_wallet_address !== ""
+					walletInputValue.recipient_wallet_address !== "" && invalidAddress
 						? "border border-[crimson] bg-[#63071a]"
-						: "border-white"
+						: ""
 				}
+				${walletInputValue.recipient_wallet_address === "" && "border border-[white]"}
 				${invalidAddress && "border border-[crimson] bg-[#63071a]"}
 				${!invalidAddress && "border-green-500 bg-green-900"}
-				
-				
 				
 				mt-4 flex h-[55px] cursor-pointer rounded-lg px-5 active:border-white  active:bg-transparent`}
 			>
@@ -173,7 +166,7 @@ export default function EnterWalletAddress() {
 					Recipient {currencyData.response_currency} address
 				</div>
 				<input
-					autoComplete="off"
+					autoCapitalize="off"
 					name="recipient_wallet_address"
 					value={walletInputValue.recipient_wallet_address}
 					ref={handleFocus}
