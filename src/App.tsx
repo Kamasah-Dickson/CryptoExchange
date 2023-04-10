@@ -2,7 +2,7 @@ import CurrencyCard from "./Components/CurrencyCard";
 import Header from "./Components/Header";
 import CurrencyContext from "./contexts/contexts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./Pages/Login";
+import Signin from "./Pages/Signin";
 import Signup from "./Pages/Signup";
 import Exchange from "./Pages/Exchange";
 
@@ -33,7 +33,7 @@ function App() {
 						}
 					/>
 					<Route path="/exchange" element={<Exchange />} />
-					<Route path="/login" element={<Login />} />
+					<Route path="/signin" element={<Signin />} />
 					<Route path="/signup" element={<Signup />} />
 				</Routes>
 			</Router>
