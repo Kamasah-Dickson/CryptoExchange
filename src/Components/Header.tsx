@@ -10,10 +10,10 @@ function Header() {
 				</Link>
 				<ul className="flex items-center justify-center gap-7 text-white">
 					<Link
-						to="/login"
+						to="/signin"
 						className="cursor-pointer rounded-sm bg-[#6f33df5e] py-2 px-5 text-sm transition-all active:scale-[1.05] md:text-base"
 					>
-						Sign In
+						Log In
 					</Link>
 					<Link
 						to="/signup"
