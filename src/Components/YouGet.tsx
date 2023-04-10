@@ -45,15 +45,6 @@ function YouGet({
 	setprevUserCurrency,
 }: exchangeProp) {
 	const { setcurrencyData, currencyData } = useContext(currencyNameContext);
-	function updateResponseOptions(e: React.ChangeEvent<HTMLInputElement>) {
-		const value = e.target.value;
-		setcurrencyData((prev) => ({
-			...prev,
-			[e.target.value]: parseInt(value),
-		}));
-	}
-
-	const { setcurrencyAddresses } = useContext(currencyNameContext);
 
 	//fix precition errors leading to zeroes using decimal.js
 	const currencyDataDecimal = new Decimal(
@@ -79,6 +70,13 @@ function YouGet({
 		}));
 	}
 
+	function updateResponseOptions(e: React.ChangeEvent<HTMLInputElement>) {
+		const value = e.target.value;
+		setcurrencyData((prev) => ({
+			...prev,
+			[e.target.value]: parseInt(value),
+		}));
+	}
 	//handle currencyData changes
 	function handleCurrency(e: React.ChangeEvent<HTMLSelectElement>) {
 		handlecurrencyData();
@@ -86,14 +84,9 @@ function YouGet({
 			...prev,
 			response_currency: e.target.value,
 		}));
-
-		setcurrencyAddresses((prev) => ({
-			...prev,
-			user_Wallet_Address: (currencies[0] as any)[e.target.value].name,
-		}));
 	}
 
-	// =========switch up options if user tries to make them the same=========
+	// =========switch up select options if user tries to make them the same=========
 	function handleGetBlur() {
 		if (
 			currencyData.response_currency !== prevCurrencies.prevResponseCurrency
@@ -114,7 +107,6 @@ function YouGet({
 			}));
 		}
 	}
-	//
 
 	return (
 		<div className="flex w-full flex-col gap-2">

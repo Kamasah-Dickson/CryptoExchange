@@ -21,10 +21,10 @@ export default function EnterWalletAddress() {
 		invalidAddress2,
 		shouldDisable,
 		setshouldDisable,
+		showAdditionalDetails,
 	} = useContext(currencyNameContext);
 
-	const handleFocus = useRef<HTMLInputElement>(null);
-
+	const handleFocus = useRef<HTMLInputElement | null>(null);
 	const [flexDirection, setFlexDirection] = useState(
 		"flex-row items-center bg-[#80808034]"
 	);
@@ -34,6 +34,19 @@ export default function EnterWalletAddress() {
 			handleFocus.current.focus();
 		}
 	}, []);
+
+	useEffect(() => {
+		validateUserAddress();
+	}, [
+		walletInputValue.recipient_wallet_address,
+		currencyData.response_currency,
+	]);
+
+	useEffect(() => {
+		if (walletInputValue.recipient_wallet_address === "") {
+			setInvalidAddress(true);
+		}
+	});
 
 	useEffect(() => {
 		invalidAddress ? setshouldDisable(true) : setshouldDisable(false);
@@ -81,19 +94,6 @@ export default function EnterWalletAddress() {
 			setInvalidAddress(true); // Disable the submit button
 		}
 	}
-
-	useEffect(() => {
-		validateUserAddress();
-	}, [
-		walletInputValue.recipient_wallet_address,
-		currencyData.response_currency,
-	]);
-
-	useEffect(() => {
-		if (walletInputValue.recipient_wallet_address === "") {
-			setInvalidAddress(true);
-		}
-	});
 
 	// =====validations-end=========
 

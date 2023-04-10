@@ -1,119 +1,17 @@
 import { useState, createContext, ReactNode } from "react";
-
+import { currencyNameContextProp } from "../interfaces/context_Interface";
 interface childProp {
 	children: ReactNode;
 }
 
-interface currencyNameContextProp {
-	currencies: {
-		btc: {
-			value: number;
-			name: string;
-		};
-		usdc: {
-			value: number;
-			name: string;
-		};
-		eth: {
-			value: number;
-			name: string;
-		};
-		xrp: {
-			value: number;
-			name: string;
-		};
-		ltc: {
-			value: number;
-			name: string;
-		};
-		xmr: {
-			value: number;
-			name: string;
-		};
-
-		loom: {
-			value: number;
-			name: string;
-		};
-		vot: {
-			value: number;
-			name: string;
-		};
-	}[];
-
-	setCurrencies: React.Dispatch<
-		React.SetStateAction<
-			{
-				btc: {
-					value: number;
-					name: string;
-				};
-				usdc: {
-					value: number;
-					name: string;
-				};
-				eth: {
-					value: number;
-					name: string;
-				};
-				xrp: {
-					value: number;
-					name: string;
-				};
-				ltc: {
-					value: number;
-					name: string;
-				};
-				xmr: {
-					value: number;
-					name: string;
-				};
-
-				loom: {
-					value: number;
-					name: string;
-				};
-				vot: {
-					value: number;
-					name: string;
-				};
-			}[]
-		>
-	>;
-	setcurrencyData: React.Dispatch<
-		React.SetStateAction<{
-			response_currency: string;
-			userCurrency: string;
-			response_coins: number;
-			userCoins: number;
-		}>
-	>;
-
-	currencyData: {
-		response_currency: string;
-		userCurrency: string;
-		response_coins: number;
-		userCoins: number;
-	};
-
-	walletInputValue: {
-		recipient_wallet_address: string;
-	};
-	setwalletInputValue: React.Dispatch<
-		React.SetStateAction<{
-			recipient_wallet_address: string;
-		}>
-	>;
-	setInvalidAddress: React.Dispatch<React.SetStateAction<boolean>>;
-	invalidAddress: boolean;
-	setInvalidAddress2: React.Dispatch<React.SetStateAction<boolean>>;
-	invalidAddress2: boolean;
-	setshouldDisable: React.Dispatch<React.SetStateAction<boolean>>;
-	shouldDisable: boolean;
-}
-
 export const currencyNameContext = createContext<currencyNameContextProp>({
 	setCurrencies: () => {},
+	setcurrencyData: () => {},
+	setwalletInputValue: () => {},
+	setInvalidAddress: () => {},
+	setInvalidAddress2: () => {},
+	setshouldDisable: () => {},
+	setshowAdditionalDetails: () => {},
 	currencies: [
 		{
 			btc: {
@@ -151,23 +49,19 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 			},
 		},
 	],
-	setcurrencyData: () => {},
 	currencyData: {
 		response_currency: "eth",
 		userCurrency: "btc",
 		response_coins: 0.0123,
 		userCoins: 0.1,
 	},
+	showAdditionalDetails: false,
+	shouldDisable: true,
+	invalidAddress: true,
+	invalidAddress2: true,
 	walletInputValue: {
 		recipient_wallet_address: "",
 	},
-	setwalletInputValue: () => {},
-	setInvalidAddress: () => {},
-	invalidAddress: true,
-	invalidAddress2: true,
-	setInvalidAddress2: () => {},
-	setshouldDisable: () => {},
-	shouldDisable: true,
 });
 
 function CurrencyContext({ children }: childProp) {
@@ -223,6 +117,7 @@ function CurrencyContext({ children }: childProp) {
 	const [invalidAddress, setInvalidAddress] = useState(true);
 	const [invalidAddress2, setInvalidAddress2] = useState(true);
 	const [shouldDisable, setshouldDisable] = useState(true);
+	const [showAdditionalDetails, setshowAdditionalDetails] = useState(false);
 
 	return (
 		<currencyNameContext.Provider
@@ -239,6 +134,8 @@ function CurrencyContext({ children }: childProp) {
 				setInvalidAddress2,
 				setshouldDisable,
 				shouldDisable,
+				showAdditionalDetails,
+				setshowAdditionalDetails,
 			}}
 		>
 			{children}

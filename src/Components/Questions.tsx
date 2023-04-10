@@ -25,7 +25,7 @@ function Questions({ title, answer, arrayOfAnswers }: questionsProp) {
 				<h4
 					onClick={() => setShow((prev) => !prev)}
 					className={`${
-						!show && "text-[#cb7dff]"
+						!show && "font-semibold text-[#291792]"
 					} flex cursor-pointer items-center justify-between gap-3 text-base md:text-lg`}
 				>
 					{title}

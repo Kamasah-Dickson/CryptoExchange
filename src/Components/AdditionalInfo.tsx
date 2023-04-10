@@ -57,7 +57,6 @@ function reducer(
 }
 
 function AdditionalInfo() {
-	const [showInfo, setShowInfo] = useState(false);
 	const [reducerState, dispatch] = useReducer(reducer, initialState);
 	const handleFocus = useRef<HTMLInputElement>(null);
 	const handleFocus2 = useRef<HTMLInputElement>(null);
@@ -67,8 +66,25 @@ function AdditionalInfo() {
 		currencyData,
 		invalidAddress2,
 		setInvalidAddress2,
+		showAdditionalDetails,
+		setshowAdditionalDetails,
 	} = useContext(currencyNameContext);
 	const [validEmail, setValidEmail] = useState(false);
+	const handleClick = useCallback(() => {
+		if (handleFocus.current) {
+			handleFocus.current.focus();
+		}
+	}, []);
+
+	const handleClick2 = useCallback(() => {
+		if (handleFocus2.current) {
+			handleFocus2.current.focus();
+		}
+	}, []);
+
+	useEffect(() => {
+		validateUserAddress();
+	}, [reducerState.wallet_address, currencyData.userCurrency]);
 
 	function validateUserAddress() {
 		const isValid = validate(
@@ -86,22 +102,6 @@ function AdditionalInfo() {
 			setInvalidAddress(true);
 		}
 	}
-
-	useEffect(() => {
-		validateUserAddress();
-	}, [reducerState.wallet_address, currencyData.userCurrency]);
-
-	const handleClick = useCallback(() => {
-		if (handleFocus.current) {
-			handleFocus.current.focus();
-		}
-	}, []);
-
-	const handleClick2 = useCallback(() => {
-		if (handleFocus2.current) {
-			handleFocus2.current.focus();
-		}
-	}, []);
 
 	function handleBlur() {
 		if (reducerState.wallet_address !== "" && invalidAddress2) {
@@ -189,10 +189,10 @@ function AdditionalInfo() {
 		<div className="mt-10">
 			<h3
 				className="flex cursor-pointer items-center justify-center"
-				onClick={() => setShowInfo((prev) => !prev)}
+				onClick={() => setshowAdditionalDetails((prev) => !prev)}
 			>
 				Additional Information
-				{showInfo ? (
+				{showAdditionalDetails ? (
 					<MdOutlineKeyboardArrowUp size={20} />
 				) : (
 					<MdOutlineKeyboardArrowDown size={20} />
@@ -202,7 +202,7 @@ function AdditionalInfo() {
 			<div>
 				<div
 					className={`mt-10 transition-all ${
-						showInfo ? "h-[350px] md:h-[180px]" : "h-[0px]"
+						showAdditionalDetails ? "h-[350px] md:h-[180px]" : "h-[0px]"
 					} flex flex-col gap-6 overflow-hidden`}
 				>
 					<div className="flex flex-col items-center justify-center gap-5 md:flex-row">

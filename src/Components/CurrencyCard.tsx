@@ -13,6 +13,10 @@ function CurrencyCard() {
 
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
 	const navigate = useNavigate();
+	const [prevCurrencies, setprevUserCurrency] = useState({
+		prevUserCurrency: currencyData.userCurrency,
+		prevResponseCurrency: currencyData.response_currency,
+	});
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -20,11 +24,6 @@ function CurrencyCard() {
 		setShowAdditionalDetails(true);
 		!shouldDisable && navigate("/exchange");
 	}
-
-	const [prevCurrencies, setprevUserCurrency] = useState({
-		prevUserCurrency: currencyData.userCurrency,
-		prevResponseCurrency: currencyData.response_currency,
-	});
 
 	return (
 		<form

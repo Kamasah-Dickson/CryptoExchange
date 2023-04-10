@@ -23,16 +23,6 @@ function YouSend({
 	const { currencies, setcurrencyData, currencyData } =
 		useContext(currencyNameContext);
 
-	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
-		const value = e.target.value;
-		if (parseFloat(value) >= 0) {
-			setcurrencyData((prev) => ({
-				...prev,
-				userCoins: parseFloat(value),
-			}));
-		}
-	}
-
 	//fix precition errors leading to zeroes using decimal.js
 	const userCoinsDecimal = new Decimal(currencyData.userCoins).toNumber();
 	const userExchangeRate = new Decimal(
@@ -58,6 +48,16 @@ function YouSend({
 		currencies,
 		currencyData.response_currency,
 	]);
+
+	function updateUserOptions(e: React.ChangeEvent<HTMLInputElement>) {
+		const value = e.target.value;
+		if (parseFloat(value) >= 0) {
+			setcurrencyData((prev) => ({
+				...prev,
+				userCoins: parseFloat(value),
+			}));
+		}
+	}
 
 	function handleUserAmountChange(userCoins: number) {
 		setcurrencyData((prev) => ({
@@ -98,7 +98,7 @@ function YouSend({
 			}));
 		}
 	}
-	//
+
 	return (
 		<div className="flex w-full flex-col gap-2">
 			<label htmlFor="youSend" className="text-left sm:hidden">
