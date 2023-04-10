@@ -70,13 +70,13 @@ function AnyQuestions() {
 					<p className="text-sm font-normal text-[#eae3fc]">
 						Log in to your account and receive cashback for every exchange. If
 						you don’t have a customer account you are welcome to{" "}
-						<Link className="cursor-pointer text-[#a985fd]" to={"/login"}>
+						<Link className="cursor-pointer text-[#a985fd]" to={"/signin"}>
 							sign up!{" "}
 						</Link>
 						Don’t forget to log in to your account every time before creating
 						the exchange as this is the only way to get crypto cashback. Please,
 						read about different types of cashback subscriptions and find the{" "}
-						<Link className="cursor-pointer text-[#a985fd]" to={"/login"}>
+						<Link className="cursor-pointer text-[#a985fd]" to={"/signin"}>
 							terms and conditions
 						</Link>{" "}
 						of our Loyalty Program here.
