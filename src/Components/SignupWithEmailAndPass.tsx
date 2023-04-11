@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import closeIcon from "../assets/X.svg";
@@ -49,6 +49,7 @@ function SignupWithEmailAndPass({
 						onBlur={() => setAddEmailBorder(false)}
 						className={`
 						
+						${errors.email?.message && "border border-[crimson]"}
 						${errors.email?.type === "required" && "border border-[crimson]"}
 						${errors.email?.type === "pattern" && "border border-[crimson]"}
 						${
@@ -80,6 +81,9 @@ function SignupWithEmailAndPass({
 
 					<p className="text-xs text-[crimson]">
 						{errors.email?.type === "required" && "Email is required"}
+					</p>
+					<p className="text-xs text-[crimson]">
+						{errors.email?.message && "Email account is already in use"}
 					</p>
 					<p className="text-xs text-[crimson]">
 						{errors.email?.type === "pattern" && "Please check your email"}
