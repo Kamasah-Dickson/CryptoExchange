@@ -46,7 +46,7 @@ function Header() {
 					<ul className="flex items-center justify-center gap-7 text-white">
 						<Link
 							className="text-sm font-semibold uppercase text-white transition-all hover:text-[#bcbcbd] active:scale-[1.07]"
-							to="/"
+							to="/dashboard/overview"
 						>
 							Dashboard
 						</Link>
