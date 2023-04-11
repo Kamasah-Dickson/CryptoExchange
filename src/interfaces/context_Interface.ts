@@ -57,7 +57,7 @@ export interface currencyNameContextProp {
 	setInvalidAddress2: React.Dispatch<React.SetStateAction<boolean>>;
 	setshouldDisable: React.Dispatch<React.SetStateAction<boolean>>;
 	setSignedUser: React.Dispatch<React.SetStateAction<User | null>>;
-
+	setHideDashboard: React.Dispatch<React.SetStateAction<boolean>>;
 	currencies: {
 		btc: {
 			value: number;
@@ -109,4 +109,5 @@ export interface currencyNameContextProp {
 	invalidAddress2: boolean;
 	shouldDisable: boolean;
 	signedUser: User | null;
+	hideDashboard: boolean;
 }
