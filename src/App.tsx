@@ -5,6 +5,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Signin from "./Pages/Signin";
 import Signup from "./Pages/Signup";
 import Exchange from "./Pages/Exchange";
+import Dashboard from "./Pages/Dashboard";
+import Chart from "./Components/Chart";
+import Transactions from "./Components/Transactions";
+import Wallet from "./Components/Wallet";
+import Settings from "./Components/Settings";
+import LogUserOut from "./Components/LogUserOut";
 
 function App() {
 	return (
@@ -14,7 +20,7 @@ function App() {
 					<Route
 						path="/"
 						element={
-							<>
+							<div>
 								<Header />
 								<main>
 									<div className="mt-10 flex flex-col items-center justify-center leading-10 text-white">
@@ -29,12 +35,20 @@ function App() {
 									</div>
 									<CurrencyCard />
 								</main>
-							</>
+							</div>
 						}
 					/>
 					<Route path="/exchange" element={<Exchange />} />
 					<Route path="/signin" element={<Signin />} />
 					<Route path="/signup" element={<Signup />} />
+					<Route path="/dashboard" element={<Dashboard />}>
+						<Route path="/dashboard/overview" element={<Dashboard />} />
+						<Route path="/dashboard/chart" element={<Chart />} />
+						<Route path="/dashboard/transactions" element={<Transactions />} />
+						<Route path="/dashboard/Wallet" element={<Wallet />} />
+						<Route path="/dashboard/settings" element={<Settings />} />
+						<Route path="/dashboard/logout" element={<LogUserOut />} />
+					</Route>
 				</Routes>
 			</Router>
 		</CurrencyContext>
