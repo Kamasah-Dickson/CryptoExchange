@@ -12,6 +12,7 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 	setInvalidAddress: () => {},
 	setInvalidAddress2: () => {},
 	setshouldDisable: () => {},
+	setHideDashboard: () => {},
 	currencies: [
 		{
 			btc: {
@@ -63,6 +64,7 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 	},
 	setSignedUser: () => {},
 	signedUser: null,
+	hideDashboard: false,
 });
 
 function CurrencyContext({ children }: childProp) {
@@ -119,6 +121,7 @@ function CurrencyContext({ children }: childProp) {
 	const [invalidAddress2, setInvalidAddress2] = useState(true);
 	const [shouldDisable, setshouldDisable] = useState(true);
 	const [signedUser, setSignedUser] = useState<User | null>(null);
+	const [hideDashboard, setHideDashboard] = useState(false);
 
 	return (
 		<currencyNameContext.Provider
@@ -137,6 +140,8 @@ function CurrencyContext({ children }: childProp) {
 				shouldDisable,
 				setSignedUser,
 				signedUser,
+				hideDashboard,
+				setHideDashboard,
 			}}
 		>
 			{children}
