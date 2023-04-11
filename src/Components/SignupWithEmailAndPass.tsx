@@ -49,6 +49,7 @@ function SignupWithEmailAndPass({
 						onBlur={() => setAddEmailBorder(false)}
 						className={`
 						
+						${errors.email?.message && "border border-[crimson]"}
 						${errors.email?.type === "required" && "border border-[crimson]"}
 						${errors.email?.type === "pattern" && "border border-[crimson]"}
 						${
@@ -78,6 +79,10 @@ function SignupWithEmailAndPass({
 						)}
 					</div>
 
+					<p className="text-xs text-[crimson]">
+						{errors.email?.type === "required" && "Email is required"}
+						{errors.email?.message && errors.email.message}
+					</p>
 					<p className="text-xs text-[crimson]">
 						{errors.email?.type === "required" && "Email is required"}
 					</p>
