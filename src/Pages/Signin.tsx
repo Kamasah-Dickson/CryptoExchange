@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import closeIcon from "../assets/X.svg";
 import { useForm } from "react-hook-form";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { toast, ToastContainer } from "react-toastify";
+import { currencyNameContext } from "../contexts/contexts";
 
 type SigninType = {
 	email: string;
@@ -10,9 +14,16 @@ type SigninType = {
 	checkbox: boolean;
 };
 
+type newUserDataType = {
+	email: string;
+	password: string;
+};
+
 function Signin() {
 	const [addEmailBorder, setAddEmailBorder] = useState(false);
 	const [addPasswordBorder, setAddPasswordBorder] = useState(false);
+	const { setSignedUser } = useContext(currencyNameContext);
+	const navigate = useNavigate();
 	const {
 		handleSubmit,
 		register,
@@ -24,7 +35,30 @@ function Signin() {
 	const emailValue = watch("email");
 
 	function formSubmit(data: SigninType) {
-		console.log(data);
+		signInWithPasswordAndmail(data);
+	}
+
+	async function signInWithPasswordAndmail(data: newUserDataType) {
+		try {
+			const user = await signInWithEmailAndPassword(
+				auth,
+				data.email,
+				data.password
+			);
+
+			const UserCredentials = user.user;
+
+			console.log(UserCredentials);
+			if (UserCredentials) {
+				setSignedUser(UserCredentials);
+				navigate("/");
+			}
+		} catch (error: any) {
+			console.log(error.message);
+			if (error.code === "auth/network-request-failed") {
+				toast.error("Check your internet connection and try again");
+			}
+		}
 	}
 
 	return (
@@ -124,7 +158,7 @@ function Signin() {
 						<div className="flex w-full items-center justify-between">
 							<div className="flex items-center justify-center gap-2">
 								<input
-									{...register("checkbox", { required: true })}
+									{...register("checkbox", { required: false })}
 									type="checkbox"
 									name="checkbox"
 									id="myCheckbox"
@@ -144,6 +178,7 @@ function Signin() {
 							>
 								Sign in
 							</button>
+							<ToastContainer limit={3} />
 
 							<button
 								className="align-center mx-auto flex w-full max-w-md items-center justify-center gap-3 rounded-xl border border-black py-3 transition-all hover:bg-black hover:text-white active:scale-[1.08]"
