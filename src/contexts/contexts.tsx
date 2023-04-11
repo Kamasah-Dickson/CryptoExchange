@@ -1,5 +1,5 @@
 import { useState, createContext, ReactNode } from "react";
-
+import { User } from "firebase/auth";
 interface childProp {
 	children: ReactNode;
 }
@@ -110,6 +110,8 @@ interface currencyNameContextProp {
 	invalidAddress2: boolean;
 	setshouldDisable: React.Dispatch<React.SetStateAction<boolean>>;
 	shouldDisable: boolean;
+	setSignedUser: React.Dispatch<React.SetStateAction<User | null>>;
+	signedUser: User | null;
 }
 
 export const currencyNameContext = createContext<currencyNameContextProp>({
@@ -168,6 +170,8 @@ export const currencyNameContext = createContext<currencyNameContextProp>({
 	setInvalidAddress2: () => {},
 	setshouldDisable: () => {},
 	shouldDisable: true,
+	setSignedUser: () => {},
+	signedUser: null,
 });
 
 function CurrencyContext({ children }: childProp) {
@@ -223,6 +227,7 @@ function CurrencyContext({ children }: childProp) {
 	const [invalidAddress, setInvalidAddress] = useState(true);
 	const [invalidAddress2, setInvalidAddress2] = useState(true);
 	const [shouldDisable, setshouldDisable] = useState(true);
+	const [signedUser, setSignedUser] = useState<User | null>(null);
 
 	return (
 		<currencyNameContext.Provider
@@ -239,6 +244,8 @@ function CurrencyContext({ children }: childProp) {
 				setInvalidAddress2,
 				setshouldDisable,
 				shouldDisable,
+				setSignedUser,
+				signedUser,
 			}}
 		>
 			{children}
