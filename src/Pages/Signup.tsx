@@ -1,16 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import SignupWithEmailAndPass from "../Components/SignupWithEmailAndPass";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
+	User,
 	createUserWithEmailAndPassword,
 	sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import VerifyEmail from "../Components/VerifyEmail";
+import { toast, ToastContainer } from "react-toastify";
+
 type InputTypes = {
 	password: string;
 	email: string;
@@ -19,6 +22,8 @@ type InputTypes = {
 function Signup() {
 	const navigate = useNavigate();
 	const [showSignWithEmail, setshowSignWithEmail] = useState(false);
+	const [theNewUser, setTheNewUser] = useState<User | null>(null);
+
 	const {
 		register,
 		handleSubmit,
@@ -34,7 +39,6 @@ function Signup() {
 	});
 
 	const [waitForVerification, setWaitForVerification] = useState(false);
-	const [theNewUser, setTheNewUser] = useState<User | null>(null);
 	const [isVerified, setIsVerified] = useState(false);
 	type newUserDataType = {
 		email: string;
@@ -48,7 +52,6 @@ function Signup() {
 				data.email,
 				data.password
 			);
-
 			setWaitForVerification(true);
 
 			const newUserCredentials = newUser.user;
@@ -57,6 +60,7 @@ function Signup() {
 
 			if (newUserCredentials.emailVerified) {
 				setIsVerified(true);
+				setWaitForVerification(false);
 			} else {
 				setWaitForVerification(true);
 			}
@@ -64,6 +68,8 @@ function Signup() {
 			console.log(error.message);
 			if (error.code === "auth/email-already-in-use") {
 				setError("email", { type: "manual", message: "Email already in use" });
+			} else if (error.code === "auth/network-request-failed") {
+				toast.error("Please check your internet connection");
 			}
 		}
 	}
@@ -93,14 +99,10 @@ function Signup() {
 	return (
 		<>
 			{waitForVerification ? (
-				<div>
-					<p>Please verify your email address to access this feature</p>
-					{theNewUser && (
-						<button onClick={() => sendEmailVerification(theNewUser)}>
-							Resend Verification Email
-						</button>
-					)}
-				</div>
+				<VerifyEmail
+					theNewUser={theNewUser}
+					sendEmailVerification={sendEmailVerification}
+				/>
 			) : (
 				<div className="my-5 mx-auto grid max-w-2xl items-center p-2 lg:my-0 lg:h-screen  lg:max-w-full lg:p-5">
 					<form
@@ -109,14 +111,17 @@ function Signup() {
 					>
 						<div className="order-2 flex-[1.5] bg-white p-7 md:flex-[2] lg:order-1 lg:p-20">
 							{showSignWithEmail ? (
-								<SignupWithEmailAndPass
-									setshowSignWithEmail={setshowSignWithEmail}
-									showSignWithEmail={showSignWithEmail}
-									register={register}
-									errors={errors}
-									watch={watch}
-									reset={reset}
-								/>
+								<>
+									<SignupWithEmailAndPass
+										setshowSignWithEmail={setshowSignWithEmail}
+										showSignWithEmail={showSignWithEmail}
+										register={register}
+										errors={errors}
+										watch={watch}
+										reset={reset}
+									/>
+									<ToastContainer limit={3} />
+								</>
 							) : (
 								<>
 									<div className="flex items-center justify-between">
