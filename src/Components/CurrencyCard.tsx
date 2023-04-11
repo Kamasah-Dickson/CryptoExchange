@@ -12,6 +12,7 @@ function CurrencyCard() {
 		useContext(currencyNameContext);
 
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
+
 	const navigate = useNavigate();
 	const [prevCurrencies, setprevUserCurrency] = useState({
 		prevUserCurrency: currencyData.userCurrency,

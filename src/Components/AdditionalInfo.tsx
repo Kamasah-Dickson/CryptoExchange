@@ -66,9 +66,8 @@ function AdditionalInfo() {
 		currencyData,
 		invalidAddress2,
 		setInvalidAddress2,
-		showAdditionalDetails,
-		setshowAdditionalDetails,
 	} = useContext(currencyNameContext);
+	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
 	const [validEmail, setValidEmail] = useState(false);
 	const handleClick = useCallback(() => {
 		if (handleFocus.current) {
@@ -189,7 +188,7 @@ function AdditionalInfo() {
 		<div className="mt-10">
 			<h3
 				className="flex cursor-pointer items-center justify-center"
-				onClick={() => setshowAdditionalDetails((prev) => !prev)}
+				onClick={() => setShowAdditionalDetails((prev) => !prev)}
 			>
 				Additional Information
 				{showAdditionalDetails ? (

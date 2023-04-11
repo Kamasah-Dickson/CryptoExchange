@@ -1,3 +1,5 @@
+import { User } from "firebase/auth";
+
 export interface currencyNameContextProp {
 	setCurrencies: React.Dispatch<
 		React.SetStateAction<
@@ -54,7 +56,7 @@ export interface currencyNameContextProp {
 	setInvalidAddress: React.Dispatch<React.SetStateAction<boolean>>;
 	setInvalidAddress2: React.Dispatch<React.SetStateAction<boolean>>;
 	setshouldDisable: React.Dispatch<React.SetStateAction<boolean>>;
-	setshowAdditionalDetails: React.Dispatch<React.SetStateAction<boolean>>;
+	setSignedUser: React.Dispatch<React.SetStateAction<User | null>>;
 
 	currencies: {
 		btc: {
@@ -106,5 +108,5 @@ export interface currencyNameContextProp {
 	invalidAddress: boolean;
 	invalidAddress2: boolean;
 	shouldDisable: boolean;
-	showAdditionalDetails: boolean;
+	signedUser: User | null;
 }
