@@ -75,7 +75,6 @@ function Signup() {
 	}
 
 	const formSubmit: SubmitHandler<InputTypes> = (data) => {
-		// console.log(data.email, data.password);
 		createNewUserWithEmailAndPassword(data);
 	};
 
