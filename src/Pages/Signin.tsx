@@ -48,7 +48,6 @@ function Signin() {
 
 			const UserCredentials = user.user;
 
-			console.log(UserCredentials);
 			if (UserCredentials) {
 				setSignedUser(UserCredentials);
 				navigate("/");
