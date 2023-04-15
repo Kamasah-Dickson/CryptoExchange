@@ -1,16 +1,11 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { currencyNameContext } from "../contexts/contexts";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 function Header() {
-	const { signedUser } = useContext(currencyNameContext);
 	const [loggedIn, setLoggedIn] = useState(false);
-	const location = useLocation();
-
 	function deterMineUserLoggedIn() {
 		onAuthStateChanged(auth, (signedUser) => {
 			if (signedUser) {
@@ -23,7 +18,7 @@ function Header() {
 
 	useEffect(() => {
 		deterMineUserLoggedIn();
-	}, [location.pathname]);
+	}, []);
 
 	function handleSignOut() {
 		try {

@@ -51,38 +51,20 @@ function Dashboard_Sidebar() {
 					})}
 				</div>
 				<div>
-					<Link to="/dashboard/settings">
-						<li
-							className={`
-						${
-							location.pathname === "/dashboard/settings"
-								? "bg-[#5160f9] text-white"
-								: "text-[#74777e]"
-						}
-						flex items-center justify-start gap-2 rounded-lg p-3 text-[#74777e] transition-all hover:bg-[#5160f9]  hover:text-white`}
-						>
-							<TbSettingsFilled size={20} />
-							<p className=" text-md hidden font-medium capitalize md:flex">
-								Settings
-							</p>
-						</li>
-					</Link>
-					<Link to="/dashboard/logout">
-						<li
-							className={`
+					<li
+						className={`
 						${
 							location.pathname === "/dashboard/logout"
 								? "bg-[#5160f9] text-white"
 								: "text-[#74777e]"
 						}
-						flex items-center justify-start gap-2 rounded-lg p-3 text-[#74777e] transition-all hover:bg-[#5160f9] hover:text-white`}
-						>
-							<CgLogOut size={20} />
-							<p className=" text-md hidden font-medium capitalize md:flex">
-								Logout
-							</p>
-						</li>
-					</Link>
+						flex cursor-pointer items-center justify-start gap-2 rounded-lg p-3 text-[#74777e] transition-all hover:bg-[#5160f9] hover:text-white`}
+					>
+						<CgLogOut size={20} />
+						<p className=" text-md hidden font-medium capitalize md:flex">
+							Logout
+						</p>
+					</li>
 				</div>
 			</ul>
 		</div>

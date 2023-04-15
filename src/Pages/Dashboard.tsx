@@ -4,7 +4,7 @@ import Dashboard_Sidebar from "../Components/Dashboard_Sidebar";
 
 function Dashboard() {
 	useEffect(() => {
-		document.body.style.background = "#323440";
+		document.body.classList.add("brown");
 	}, []);
 	return (
 		<div className=" flex w-full">

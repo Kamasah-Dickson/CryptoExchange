@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import YouSend from "./YouSend";
 import YouGet from "./YouGet";
 import { currencyNameContext } from "../contexts/contexts";
@@ -10,9 +10,7 @@ import { useNavigate } from "react-router";
 function CurrencyCard() {
 	const { currencies, currencyData, shouldDisable } =
 		useContext(currencyNameContext);
-
 	const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
-
 	const navigate = useNavigate();
 	const [prevCurrencies, setprevUserCurrency] = useState({
 		prevUserCurrency: currencyData.userCurrency,
@@ -25,6 +23,10 @@ function CurrencyCard() {
 		setShowAdditionalDetails(true);
 		!shouldDisable && navigate("/exchange");
 	}
+
+	useEffect(() => {
+		document.body.classList.remove("brown");
+	}, []);
 
 	return (
 		<form

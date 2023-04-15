@@ -201,13 +201,14 @@ function AdditionalInfo() {
 			<div>
 				<div
 					className={`mt-10 transition-all ${
-						showAdditionalDetails ? "h-[350px] md:h-[180px]" : "h-[0px]"
+						showAdditionalDetails ? "h-[300px] md:h-[190px]" : "h-[0px]"
 					} flex flex-col gap-6 overflow-hidden`}
 				>
 					<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
 						<div className="flex-1">
-							<h3 className="font-medium text-white">
-								Enter your refund Address
+							<h3 className="mb-1 font-medium text-white">
+								Enter your {currencyData.userCurrency.toUpperCase()} refund
+								Address
 							</h3>
 							<p className="text-sm text-[grey]">
 								We recommend adding your wallet address for a refund.
@@ -249,7 +250,7 @@ function AdditionalInfo() {
 					</div>
 					<div className="flex flex-col items-center justify-center gap-5 md:flex-row">
 						<div className="flex-1">
-							<h3 className="font-medium text-white">Add your Email</h3>
+							<h3 className="mb-1 font-medium text-white">Add your Email</h3>
 							<p className="text-sm text-[grey]">
 								Add your email to get notifications about this exchange.
 							</p>

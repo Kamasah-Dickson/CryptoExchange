@@ -21,7 +21,6 @@ export default function EnterWalletAddress() {
 		invalidAddress2,
 		shouldDisable,
 		setshouldDisable,
-		showAdditionalDetails,
 	} = useContext(currencyNameContext);
 
 	const handleFocus = useRef<HTMLInputElement | null>(null);
@@ -66,15 +65,22 @@ export default function EnterWalletAddress() {
 				}));
 				setFlexDirection("flex-col items-start py-2 text-sm");
 			} catch (error: any) {
-				toast.error(error.message, {
-					position: toast.POSITION.BOTTOM_RIGHT,
-					toastId: "preventDuplicate-yes",
-				});
+				if (error.code === 4001) {
+					toast.info("Etherium request rejected", {
+						position: toast.POSITION.TOP_CENTER,
+					});
+				} else {
+					toast.error(
+						"Already processing an etherium request, please check your metamast",
+						{
+							position: toast.POSITION.TOP_CENTER,
+						}
+					);
+				}
 			}
 		} else {
 			toast.error("Install the MetaMask extension", {
 				position: toast.POSITION.BOTTOM_RIGHT,
-				toastId: "preventDuplicate-yes",
 			});
 		}
 	}
@@ -130,7 +136,8 @@ export default function EnterWalletAddress() {
 		<div className="mt-10">
 			<div className="flex items-center justify-between gap-5">
 				<h3 className="text-base font-medium md:text-lg">
-					Enter your wallet address
+					Enter your {currencyData.response_currency.toUpperCase()} wallet
+					address
 				</h3>
 				<div className="h-7 w-7 cursor-pointer">
 					<ToastContainer autoClose={4500} transition={Zoom} />
