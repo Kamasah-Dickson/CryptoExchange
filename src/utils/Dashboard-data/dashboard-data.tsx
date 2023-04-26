@@ -11,19 +11,20 @@ export const data = [
 		icon: <BsFillGridFill size={20} />,
 		pathname: "overview",
 	},
-	{
-		name: "chart",
-		icon: <AiFillPieChart size={20} />,
-		pathname: "chart",
-	},
+
 	{
 		name: "transactions",
 		icon: <BiTransfer size={20} />,
 		pathname: "transactions",
 	},
 	{
-		name: "wallet",
-		icon: <IoIosWallet size={20} />,
-		pathname: "wallet",
+		name: "chart",
+		icon: <AiFillPieChart size={20} />,
+		pathname: "chart",
 	},
+	// {
+	// 	name: "wallet",
+	// 	icon: <IoIosWallet size={20} />,
+	// 	pathname: "wallet",
+	// },
 ];
