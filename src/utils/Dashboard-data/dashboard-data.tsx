@@ -17,8 +17,13 @@ export const data = [
 		pathname: "transactions",
 	},
 	{
-		name: "wallet",
-		icon: <IoIosWallet size={20} />,
-		pathname: "wallet",
+		name: "chart",
+		icon: <AiFillPieChart size={20} />,
+		pathname: "chart",
 	},
+	// {
+	// 	name: "wallet",
+	// 	icon: <IoIosWallet size={20} />,
+	// 	pathname: "wallet",
+	// },
 ];

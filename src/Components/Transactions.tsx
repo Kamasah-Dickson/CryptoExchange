@@ -7,6 +7,7 @@ function Transactions() {
 			<Dashboard_Sidebar />
 			<div className="flex-[10] bg-[#323440]">
 				<Dashboard_Header />
+				<div className="p-3"></div>
 			</div>
 		</div>
 	);
