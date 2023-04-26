@@ -41,14 +41,13 @@ function App() {
 					<Route path="/exchange" element={<Exchange />} />
 					<Route path="/signin" element={<Signin />} />
 					<Route path="/signup" element={<Signup />} />
-					<Route path="/dashboard" element={<Dashboard />}>
-						<Route path="/dashboard/overview" element={<Dashboard />} />
-						<Route path="/dashboard/chart" element={<Chart />} />
-						<Route path="/dashboard/transactions" element={<Transactions />} />
-						<Route path="/dashboard/Wallet" element={<Wallet />} />
-						<Route path="/dashboard/settings" element={<Settings />} />
-						<Route path="/dashboard/logout" element={<LogUserOut />} />
-					</Route>
+					<Route path="/dashboard" element={<Dashboard />}></Route>
+					<Route path="/dashboard/overview" element={<Dashboard />} />
+					<Route path="/dashboard/chart" element={<Chart />} />
+					<Route path="/dashboard/transactions" element={<Transactions />} />
+					<Route path="/dashboard/Wallet" element={<Wallet />} />
+					<Route path="/dashboard/settings" element={<Settings />} />
+					<Route path="/dashboard/logout" element={<LogUserOut />} />
 				</Routes>
 			</Router>
 		</CurrencyContext>
